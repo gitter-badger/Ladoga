@@ -18,6 +18,7 @@
 		3235A2DE1C1DD2E600D522EE /* LDHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2DC1C1DD2E600D522EE /* LDHTTPRequest.m */; };
 		3235A2E11C1DD2F400D522EE /* LDHTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3235A2E21C1DD2F400D522EE /* LDHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E01C1DD2F400D522EE /* LDHTTPResponse.m */; };
+		3235A2E71C1DE54800D522EE /* LDHTTPResponseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		3235A2DC1C1DD2E600D522EE /* LDHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequest.m; sourceTree = "<group>"; };
 		3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPResponse.h; sourceTree = "<group>"; };
 		3235A2E01C1DD2F400D522EE /* LDHTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPResponse.m; sourceTree = "<group>"; };
+		3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPResponseTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			children = (
 				3205C0CE1C1D4EB500C1F5B0 /* Info.plist */,
 				3205C0DE1C1D581F00C1F5B0 /* LDTcpServerTest.m */,
+				3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */,
 			);
 			path = LadogaTests;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3235A2E71C1DE54800D522EE /* LDHTTPResponseTest.m in Sources */,
 				3205C0DF1C1D581F00C1F5B0 /* LDTcpServerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
