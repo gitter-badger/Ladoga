@@ -22,6 +22,7 @@
     if (self) {
         self.headers = [[NSMutableDictionary alloc] init];
         self.code = 200;
+        self.body = @"";
     }
     return self;
 }
