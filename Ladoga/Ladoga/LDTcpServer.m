@@ -94,9 +94,9 @@ void acceptConnectionCallback(CFSocketRef s,
 }
 
 - (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle {
-    if (self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(acceptConnection:)]) {
-            [self.delegate acceptConnection:nativeSocketHandle];
+    if (self.tcpServerDelegate) {
+        if ([self.tcpServerDelegate respondsToSelector:@selector(acceptConnection:)]) {
+            [self.tcpServerDelegate acceptConnection:nativeSocketHandle];
         }
     }
 }

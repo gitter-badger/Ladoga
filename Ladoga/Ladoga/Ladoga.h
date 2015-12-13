@@ -8,11 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-//! Project version number for Ladoga.
 FOUNDATION_EXPORT double LadogaVersionNumber;
 
-//! Project version string for Ladoga.
 FOUNDATION_EXPORT const unsigned char LadogaVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <Ladoga/PublicHeader.h>
 #import <Ladoga/LDTcpServer.h>
+#import <Ladoga/LDHttpServer.h>
+#import <Ladoga/LDHttpRequest.h>
+#import <Ladoga/LDHttpResponse.h>

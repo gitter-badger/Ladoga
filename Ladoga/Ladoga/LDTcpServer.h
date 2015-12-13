@@ -31,7 +31,7 @@
 /**
  An callback that will be called by server when new connection accepted.
  */
-@property (nonatomic, weak, readwrite) id<LDTcpServerDelegate> delegate;
+@property (nonatomic, weak, readwrite) id <LDTcpServerDelegate> tcpServerDelegate;
 
 /*
  *  You can't initialize server without required parameters.
@@ -41,8 +41,12 @@
 
 /**
  Initializes server with required parameters.
- @param IP-address of interface that server should be binded to. Default is 0.0.0.0
- @param Port number that should be used to listen new connections.
+ 
+ address: 
+ IP-address of interface that server should be binded to. Default is 0.0.0.0
+ 
+ port: 
+ Port number that should be used to listen new connections.
  */
 - (instancetype _Nullable)initWithAddress:(NSString * _Nullable)address
                                   andPort:(NSInteger)port;

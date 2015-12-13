@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3205C07D1C1CDB6200C1F5B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3205C07C1C1CDB6200C1F5B0 /* main.m */; };
 		3205C0DC1C1D523B00C1F5B0 /* Ladoga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3205C0DB1C1D523B00C1F5B0 /* Ladoga.framework */; };
+		3235A2E51C1DE09100D522EE /* MyServerExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E41C1DE09100D522EE /* MyServerExample.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +28,8 @@
 		3205C0791C1CDB6200C1F5B0 /* LadogaExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LadogaExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		3205C07C1C1CDB6200C1F5B0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3205C0DB1C1D523B00C1F5B0 /* Ladoga.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Ladoga.framework; path = "../../../Library/Developer/Xcode/DerivedData/Ladoga-dknzhjwugrpxwlbeagmxacfdwsjs/Build/Products/Debug/Ladoga.framework"; sourceTree = "<group>"; };
+		3235A2E31C1DE09100D522EE /* MyServerExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyServerExample.h; sourceTree = "<group>"; };
+		3235A2E41C1DE09100D522EE /* MyServerExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyServerExample.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				3205C07C1C1CDB6200C1F5B0 /* main.m */,
+				3235A2E31C1DE09100D522EE /* MyServerExample.h */,
+				3235A2E41C1DE09100D522EE /* MyServerExample.m */,
 			);
 			path = LadogaExample;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3205C07D1C1CDB6200C1F5B0 /* main.m in Sources */,
+				3235A2E51C1DE09100D522EE /* MyServerExample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

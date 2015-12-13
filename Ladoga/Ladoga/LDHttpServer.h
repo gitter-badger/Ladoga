@@ -7,7 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LDTcpServer.h"
+#import "LDHTTPRequest.h"
+#import "LDHTTPResponse.h"
 
-@interface LDHttpServer : NSObject
 
+typedef enum : NSInteger {
+    LDHTTPMethodUnknown = -1,
+    LDHTTPMethodGET,
+    LDHTTPMethodPOST,
+    LDHTTPMethodPUT,
+    LDHTTPMethodDELETE
+} LDHTTPMethod;
+
+
+@protocol LDHttpServerDelegate <NSObject>
+@required
+- (LDHTTPResponse * _Nonnull)processRequest:(LDHTTPRequest * _Nonnull)request;
+@end
+
+
+@interface LDHttpServer : LDTcpServer <LDTcpServerDelegate>
+
+@property (nonatomic, weak, readwrite) id <LDHttpServerDelegate> httpServerDelegate;
+
+- (void)addSelector:(SEL _Nonnull)selector forPath:(NSString * _Nonnull)path method:(LDHTTPMethod)method;
 @end
