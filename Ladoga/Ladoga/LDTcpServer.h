@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-typedef void (^LDTcpServerCallback)(CFSocketNativeHandle socketNativeHandle);
+@protocol LDTcpServerDelegate <NSObject>
+@optional
+- (void)acceptConnection:(CFSocketNativeHandle)socketNativeHandle;
+@end
+
 
 
 @interface LDTcpServer : NSObject
@@ -27,7 +31,7 @@ typedef void (^LDTcpServerCallback)(CFSocketNativeHandle socketNativeHandle);
 /**
  An callback that will be called by server when new connection accepted.
  */
-@property (nonatomic, strong, readwrite) LDTcpServerCallback _Nullable acceptConnectionCallback;
+@property (nonatomic, weak, readwrite) id<LDTcpServerDelegate> delegate;
 
 /*
  *  You can't initialize server without required parameters.

@@ -62,7 +62,7 @@
     [tcpServerSecond stop];
 }
 
-- (void)testCallback {
+- (void)testConnectionDelegate {
     XCTFail(@"Test is not implemented.");
 }
 

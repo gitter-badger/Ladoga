@@ -12,9 +12,6 @@
 #include <arpa/inet.h>
 
 
-static LDTcpServerCallback _acceptConnectionCallback;
-
-
 void acceptConnectionCallback(CFSocketRef s,
                               CFSocketCallBackType callbackType,
                               CFDataRef address,
@@ -68,14 +65,6 @@ void acceptConnectionCallback(CFSocketRef s,
     return port;
 }
 
-- (LDTcpServerCallback)acceptConnectionCallback {
-    return _acceptConnectionCallback;
-}
-
-- (void)setAcceptConnectionCallback:(LDTcpServerCallback)acceptConnectionCallback {
-    _acceptConnectionCallback = acceptConnectionCallback;
-}
-
 #pragma mark - Internal methods
 
 - (NSData *)addressDataWithAddress:(NSString *)address andPort:(NSInteger)port {
@@ -105,8 +94,10 @@ void acceptConnectionCallback(CFSocketRef s,
 }
 
 - (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle {
-    if (_acceptConnectionCallback) {
-        _acceptConnectionCallback(nativeSocketHandle);
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(acceptConnection:)]) {
+            [self.delegate acceptConnection:nativeSocketHandle];
+        }
     }
 }
 
@@ -145,7 +136,5 @@ void acceptConnectionCallback(CFSocketRef s,
                               void *info) {
     LDTcpServer *server = (__bridge LDTcpServer *)info;
     CFSocketNativeHandle nativeSocketHandle = *(CFSocketNativeHandle *)data;
-    if (_acceptConnectionCallback) {
-        [server handleNewNativeSocket:nativeSocketHandle];
-    }
+    [server handleNewNativeSocket:nativeSocketHandle];
 }
