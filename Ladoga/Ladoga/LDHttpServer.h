@@ -14,10 +14,15 @@
 
 typedef enum : NSInteger {
     LDHTTPMethodUnknown = -1,
+    LDHTTPMethodOPTIONS,
     LDHTTPMethodGET,
+    LDHTTPMethodHEAD,
     LDHTTPMethodPOST,
     LDHTTPMethodPUT,
-    LDHTTPMethodDELETE
+    LDHTTPMethodPATCH,
+    LDHTTPMethodDELETE,
+    LDHTTPMethodTRACE,
+    LDHTTPMethodCONNECT
 } LDHTTPMethod;
 
 

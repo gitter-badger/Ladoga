@@ -12,7 +12,7 @@
 @interface LDHTTPRequest : NSObject
 
 @property (nonatomic, assign, readonly) NSInteger method;
-@property (nonatomic, strong, readonly) NSString * _Nonnull uri;
+@property (nonatomic, strong, readonly) NSURL * _Nonnull uri;
 @property (nonatomic, strong, readonly) NSString * _Nullable userAgent;
 
 - (instancetype _Nullable)init NS_UNAVAILABLE;
