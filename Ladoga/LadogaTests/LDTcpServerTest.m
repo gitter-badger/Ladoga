@@ -38,13 +38,6 @@ typedef void(^ConnectionHandler)();
     LDTcpServer *tcpServer = [[LDTcpServer alloc] initWithAddress:@"127.0.0.1"
                                                           andPort:55300];
     XCTAssertNotNil(tcpServer);
-    
-    [tcpServer startWithRunLoop:CFRunLoopGetMain()];
-    
-    XCTAssertEqualObjects(tcpServer.address, @"127.0.0.1");
-    XCTAssertEqual(tcpServer.port, 55300);
-    
-    [tcpServer stop];
 }
 
 - (void)testBinding {
