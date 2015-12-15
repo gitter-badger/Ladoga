@@ -17,4 +17,6 @@
 @property (nonatomic, strong, readwrite) NSString *body;
 
 - (void)addValue:(NSString *)value forHeader:(NSString *)header;
+
++ (instancetype)internalServerErrorResponse;
 @end

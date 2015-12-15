@@ -27,6 +27,13 @@
     return self;
 }
 
++ (instancetype)internalServerErrorResponse {
+    LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
+    response.code = 500;
+    response.body = @"Internal server error";
+    return response;
+}
+
 #pragma mark - Setters & getters
 
 - (CFHTTPMessageRef)httpMessage {
