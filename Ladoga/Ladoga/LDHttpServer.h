@@ -35,6 +35,4 @@ typedef enum : NSInteger {
 @interface LDHttpServer : LDTcpServer <LDTcpServerDelegate>
 
 @property (nonatomic, weak, readwrite) id <LDHttpServerDelegate> httpServerDelegate;
-
-- (void)addSelector:(SEL _Nonnull)selector forPath:(NSString * _Nonnull)path method:(LDHTTPMethod)method;
 @end

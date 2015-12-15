@@ -15,9 +15,6 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 
 @interface LDHttpServer ()
 
-@property (nonatomic, strong, readwrite) NSMutableDictionary *getImplementations;
-@property (nonatomic, strong, readwrite) NSMutableDictionary *postImplementations;
-
 - (LDHTTPRequest *)readRequest:(CFSocketNativeHandle)socket;
 - (void)sendResponse:(LDHTTPResponse *)response toSocket:(CFSocketNativeHandle)socket;
 @end
@@ -29,7 +26,6 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
     self = [super initWithAddress:address andPort:port];
     if (self) {
         self.tcpServerDelegate = self;
-        self.getImplementations = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -41,20 +37,20 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
     
     if (self.httpServerDelegate) {
         LDHTTPResponse *response = [self.httpServerDelegate processRequest:request];
-        [self sendResponse:response toSocket:socketNativeHandle];
+        if (response) {
+            [self sendResponse:response toSocket:socketNativeHandle];
+        }
+        else {
+            [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
+                      toSocket:socketNativeHandle];
+        }
     }
     else {
-#warning Have to send error response
+        [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
+                  toSocket:socketNativeHandle];
     }
     
     close(socketNativeHandle);
-}
-
-#pragma mark - Public methods
-
-- (void)addSelector:(SEL)selector forPath:(NSString *)path method:(LDHTTPMethod)method {
-    NSString * selectorName = NSStringFromSelector(selector);
-    [self.getImplementations setObject:selectorName forKey:path];
 }
 
 #pragma mark - Internal methods
