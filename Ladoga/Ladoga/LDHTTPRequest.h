@@ -13,9 +13,11 @@
 
 @property (nonatomic, assign, readonly) NSInteger method;
 @property (nonatomic, strong, readonly) NSURL *uri;
-@property (nonatomic, strong, readonly) NSString *userAgent;
+@property (nonatomic, strong, readonly) NSDictionary *HTTPHeaders;
 
 - (instancetype)init NS_UNAVAILABLE;
 
 - (instancetype)initWithMessage:(CFHTTPMessageRef)httpMessage;
+
+- (NSString *)valueForHTTPHeader:(NSString *)header;
 @end
