@@ -66,7 +66,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
         });
     });
     
-    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
         [httpServer stop];
     }];
 }
@@ -107,7 +107,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
         });
     });
     
-    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
         [httpServer stop];
     }];
 }
@@ -138,7 +138,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
         });
     });
     
-    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
         [httpServer stop];
     }];
 }
