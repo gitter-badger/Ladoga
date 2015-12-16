@@ -28,7 +28,7 @@ typedef enum : NSInteger {
 
 @protocol LDHttpServerDelegate <NSObject>
 @required
-- (LDHTTPResponse * _Nonnull)processRequest:(LDHTTPRequest * _Nonnull)request;
+- (LDHTTPResponse *)processRequest:(LDHTTPRequest *)request;
 @end
 
 
