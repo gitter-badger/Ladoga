@@ -21,7 +21,7 @@
 /**
  IP address of interface where server is running.
  */
-@property (nonatomic, strong, readonly) NSString * _Nonnull address;
+@property (nonatomic, strong, readonly) NSString *address;
 
 /**
  Port number that server is binded to.
@@ -36,8 +36,8 @@
 /*
  *  You can't initialize server without required parameters.
  */
-+ (instancetype _Nullable)new NS_UNAVAILABLE;
-- (instancetype _Nullable)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  Initializes server with required parameters.
@@ -48,13 +48,13 @@
  port: 
  Port number that should be used to listen new connections.
  */
-- (instancetype _Nullable)initWithAddress:(NSString * _Nullable)address
-                                  andPort:(NSInteger)port;
+- (instancetype)initWithAddress:(NSString *)address
+                        andPort:(NSInteger)port;
 
 /**
  Binds server to TCP port and start listening for new connections
  */
-- (BOOL)startWithRunLoop:(CFRunLoopRef _Nonnull)runLoop;
+- (BOOL)startWithRunLoop:(CFRunLoopRef)runLoop;
 
 /**
  Stops server
