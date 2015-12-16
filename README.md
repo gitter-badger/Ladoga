@@ -9,7 +9,7 @@ The basic example is easy enough, so you can start making you web applications r
 ###### MyServerExample.h
 ```Objective-C
 #import <Foundation/Foundation.h>
-#import "../../Ladoga/Ladoga/Ladoga.h"
+#import <Ladoga/Ladoga.h>
 
 @interface MyServerExample : NSObject <LDHTTPServerDelegate>
 - (void)start;
