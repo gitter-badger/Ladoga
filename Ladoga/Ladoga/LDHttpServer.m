@@ -56,17 +56,20 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 #pragma mark - Internal methods
 
 - (LDHTTPRequest *)readRequest:(CFSocketNativeHandle)socket {
-    char receivedData[LD_MAX_REQUEST_BYTES];
+    unsigned char *receivedData = malloc(LD_MAX_REQUEST_BYTES);
     NSInteger n = read(socket, receivedData, LD_MAX_REQUEST_BYTES);
     
     CFHTTPMessageRef httpMessage = CFHTTPMessageCreateEmpty(kCFAllocatorDefault, YES);
     CFHTTPMessageAppendBytes(httpMessage, receivedData, n);
+    free(receivedData);
     
-    return [[LDHTTPRequest alloc] initWithMessage:httpMessage];
+    LDHTTPRequest *request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
+    CFRelease(httpMessage);
+    return request;
 }
 
 - (void)sendResponse:(LDHTTPResponse *)response toSocket:(CFSocketNativeHandle)socket {
-    NSData *data = (__bridge NSData *)CFHTTPMessageCopySerializedMessage(response.httpMessage);
+    NSData *data = (__bridge_transfer NSData *)CFHTTPMessageCopySerializedMessage(response.httpMessage);
     write(socket, [data bytes], [data length]);
 }
 
