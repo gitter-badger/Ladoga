@@ -1,3 +1,6 @@
 language: objective-c
 xcode_workspace: Ladoga.xcworkspace
 xcode_scheme: Ladoga
+before_install:
+    - brew update
+    - brew install xctool
