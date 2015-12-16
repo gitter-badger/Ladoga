@@ -23,7 +23,7 @@
     if (self) {
         _userAgent = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(httpMessage, (__bridge CFStringRef)@"User-Agent");
         _uri = (__bridge NSURL *)CFHTTPMessageCopyRequestURL(httpMessage);
-        _method = [self httpMethodFromString:(__bridge NSString *)CFHTTPMessageCopyRequestMethod(httpMessage)];
+        _method = [self httpMethodFromString:(__bridge_transfer NSString *)CFHTTPMessageCopyRequestMethod(httpMessage)];
     }
     return self;
 }
