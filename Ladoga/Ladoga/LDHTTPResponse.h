@@ -16,7 +16,9 @@
 @property (nonatomic, assign, readwrite) NSUInteger code;
 @property (nonatomic, strong, readwrite) NSString *body;
 
-- (void)addValue:(NSString *)value forHeader:(NSString *)header;
+- (NSString *)valueForHTTPHeader:(NSString *)header;
+- (void)addValue:(NSString *)value forHTTPHeader:(NSString *)header;
+- (void)deleteHTTPHeader:(NSString *)header;
 
 + (instancetype)internalServerErrorResponse;
 @end
