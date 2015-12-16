@@ -12,10 +12,10 @@
 @interface LDHTTPRequest : NSObject
 
 @property (nonatomic, assign, readonly) NSInteger method;
-@property (nonatomic, strong, readonly) NSString * _Nonnull uri;
-@property (nonatomic, strong, readonly) NSString * _Nullable userAgent;
+@property (nonatomic, strong, readonly) NSURL *uri;
+@property (nonatomic, strong, readonly) NSString *userAgent;
 
-- (instancetype _Nullable)init NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype _Nullable)initWithMessage:(CFHTTPMessageRef _Nonnull)httpMessage;
+- (instancetype)initWithMessage:(CFHTTPMessageRef)httpMessage;
 @end

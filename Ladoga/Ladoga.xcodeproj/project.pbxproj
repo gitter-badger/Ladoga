@@ -19,6 +19,8 @@
 		3235A2E11C1DD2F400D522EE /* LDHTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3235A2E21C1DD2F400D522EE /* LDHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E01C1DD2F400D522EE /* LDHTTPResponse.m */; };
 		3235A2E71C1DE54800D522EE /* LDHTTPResponseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */; };
+		3235A2E91C1E6F8900D522EE /* LDHTTPRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E81C1E6F8900D522EE /* LDHTTPRequestTest.m */; };
+		3235A2EB1C1E8C1C00D522EE /* LDHTTPServerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2EA1C1E8C1C00D522EE /* LDHTTPServerTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPResponse.h; sourceTree = "<group>"; };
 		3235A2E01C1DD2F400D522EE /* LDHTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPResponse.m; sourceTree = "<group>"; };
 		3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPResponseTest.m; sourceTree = "<group>"; };
+		3235A2E81C1E6F8900D522EE /* LDHTTPRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequestTest.m; sourceTree = "<group>"; };
+		3235A2EA1C1E8C1C00D522EE /* LDHTTPServerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPServerTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				3205C0CE1C1D4EB500C1F5B0 /* Info.plist */,
 				3205C0DE1C1D581F00C1F5B0 /* LDTcpServerTest.m */,
 				3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */,
+				3235A2E81C1E6F8900D522EE /* LDHTTPRequestTest.m */,
+				3235A2EA1C1E8C1C00D522EE /* LDHTTPServerTest.m */,
 			);
 			path = LadogaTests;
 			sourceTree = "<group>";
@@ -236,7 +242,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3235A2EB1C1E8C1C00D522EE /* LDHTTPServerTest.m in Sources */,
 				3235A2E71C1DE54800D522EE /* LDHTTPResponseTest.m in Sources */,
+				3235A2E91C1E6F8900D522EE /* LDHTTPRequestTest.m in Sources */,
 				3205C0DF1C1D581F00C1F5B0 /* LDTcpServerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

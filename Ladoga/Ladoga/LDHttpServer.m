@@ -15,9 +15,6 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 
 @interface LDHttpServer ()
 
-@property (nonatomic, strong, readwrite) NSMutableDictionary *getImplementations;
-@property (nonatomic, strong, readwrite) NSMutableDictionary *postImplementations;
-
 - (LDHTTPRequest *)readRequest:(CFSocketNativeHandle)socket;
 - (void)sendResponse:(LDHTTPResponse *)response toSocket:(CFSocketNativeHandle)socket;
 @end
@@ -29,7 +26,6 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
     self = [super initWithAddress:address andPort:port];
     if (self) {
         self.tcpServerDelegate = self;
-        self.getImplementations = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -41,36 +37,39 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
     
     if (self.httpServerDelegate) {
         LDHTTPResponse *response = [self.httpServerDelegate processRequest:request];
-        [self sendResponse:response toSocket:socketNativeHandle];
+        if (response) {
+            [self sendResponse:response toSocket:socketNativeHandle];
+        }
+        else {
+            [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
+                      toSocket:socketNativeHandle];
+        }
     }
     else {
-#warning Have to send error response
+        [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
+                  toSocket:socketNativeHandle];
     }
     
     close(socketNativeHandle);
 }
 
-#pragma mark - Public methods
-
-- (void)addSelector:(SEL)selector forPath:(NSString *)path method:(LDHTTPMethod)method {
-    NSString * selectorName = NSStringFromSelector(selector);
-    [self.getImplementations setObject:selectorName forKey:path];
-}
-
 #pragma mark - Internal methods
 
 - (LDHTTPRequest *)readRequest:(CFSocketNativeHandle)socket {
-    char receivedData[LD_MAX_REQUEST_BYTES];
+    unsigned char *receivedData = malloc(LD_MAX_REQUEST_BYTES);
     NSInteger n = read(socket, receivedData, LD_MAX_REQUEST_BYTES);
     
     CFHTTPMessageRef httpMessage = CFHTTPMessageCreateEmpty(kCFAllocatorDefault, YES);
     CFHTTPMessageAppendBytes(httpMessage, receivedData, n);
+    free(receivedData);
     
-    return [[LDHTTPRequest alloc] initWithMessage:httpMessage];
+    LDHTTPRequest *request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
+    CFRelease(httpMessage);
+    return request;
 }
 
 - (void)sendResponse:(LDHTTPResponse *)response toSocket:(CFSocketNativeHandle)socket {
-    NSData *data = (__bridge NSData *)CFHTTPMessageCopySerializedMessage(response.httpMessage);
+    NSData *data = (__bridge_transfer NSData *)CFHTTPMessageCopySerializedMessage(response.httpMessage);
     write(socket, [data bytes], [data length]);
 }
 

@@ -27,6 +27,13 @@
     return self;
 }
 
++ (instancetype)internalServerErrorResponse {
+    LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
+    response.code = 500;
+    response.body = @"Internal server error";
+    return response;
+}
+
 #pragma mark - Setters & getters
 
 - (CFHTTPMessageRef)httpMessage {
@@ -35,7 +42,7 @@
                                                                NULL,
                                                                kCFHTTPVersion1_0);
     
-    [self.headers enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [self.headers enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         CFStringRef header = (__bridge CFStringRef)key;
         CFStringRef value = (__bridge CFStringRef)obj;
         CFHTTPMessageSetHeaderFieldValue(httpMessage, header, value);
