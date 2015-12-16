@@ -11,7 +11,7 @@
 
 @interface LDHTTPResponse ()
 
-@property (nonatomic, strong, readwrite) NSMutableDictionary *headers;
+@property (nonatomic, strong, readwrite) NSMutableDictionary *HTTPHeaders;
 @end
 
 
@@ -20,7 +20,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.headers = [[NSMutableDictionary alloc] init];
+        self.HTTPHeaders = [[NSMutableDictionary alloc] init];
         self.code = 200;
         self.body = @"";
     }
@@ -42,7 +42,7 @@
                                                                NULL,
                                                                kCFHTTPVersion1_0);
     
-    [self.headers enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [self.HTTPHeaders enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         CFStringRef header = (__bridge CFStringRef)key;
         CFStringRef value = (__bridge CFStringRef)obj;
         CFHTTPMessageSetHeaderFieldValue(httpMessage, header, value);
@@ -56,8 +56,20 @@
 
 #pragma mark - Public methods
 
-- (void)addValue:(NSString *)value forHeader:(NSString *)header {
-    [self.headers setObject:value forKey:header];
+- (NSString *)valueForHTTPHeader:(NSString *)header {
+    return [self.HTTPHeaders objectForKey:header];
+}
+
+- (void)addValue:(NSString *)value forHTTPHeader:(NSString *)header {
+    @synchronized(self.HTTPHeaders) {
+        [self.HTTPHeaders setObject:value forKey:header];
+    }
+}
+
+- (void)deleteHTTPHeader:(NSString *)header {
+    @synchronized(self.HTTPHeaders) {
+        [self.HTTPHeaders removeObjectForKey:header];
+    }
 }
 
 @end
