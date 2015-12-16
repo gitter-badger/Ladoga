@@ -1,0 +1,4 @@
+language: objective-c
+xcode_workspace: Ladoga.xcworkspace
+xcode_project: Ladoga.xcodeproj
+xcode_scheme: LadogaTests
