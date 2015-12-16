@@ -22,16 +22,23 @@
     const NSURL *requestURL = [NSURL URLWithString:@"http://127.0.0.1/index.html"];
     const NSString * const requestHTTPVersion = @"1.0";
     
+    NSString * const testHTTPHeaderField = @"User-Agent";
+    NSString * const testHTTPHeaderValue = @"My-user-agent";
+    
     CFHTTPMessageRef httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
                                                               (__bridge CFStringRef)requestMethod,
                                                               (__bridge CFURLRef)requestURL, (__bridge CFStringRef)requestHTTPVersion);
     
-    CFHTTPMessageSetHeaderFieldValue(httpMessage, (__bridge CFStringRef)@"User-Agent", (__bridge CFStringRef)@"My-user-agent");
+    CFHTTPMessageSetHeaderFieldValue(httpMessage,
+                                     (__bridge CFStringRef)testHTTPHeaderField, (__bridge CFStringRef)testHTTPHeaderValue);
     
     LDHTTPRequest *request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
 
     XCTAssertEqual(request.method, LDHTTPMethodPOST);
-    XCTAssertEqualObjects(request.userAgent, @"My-user-agent");
+    XCTAssertEqualObjects([request valueForHTTPHeader:testHTTPHeaderField], testHTTPHeaderValue);
+    
+    NSDictionary *requestHeaders = request.HTTPHeaders;
+    XCTAssertEqualObjects([requestHeaders objectForKey:testHTTPHeaderField], testHTTPHeaderValue);
     
     XCTAssertTrue([request.uri isKindOfClass:[NSURL class]]);
     XCTAssertEqualObjects(request.uri, requestURL);

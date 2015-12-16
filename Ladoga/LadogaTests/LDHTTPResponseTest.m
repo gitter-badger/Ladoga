@@ -61,11 +61,14 @@
     NSString * const headerValue = @"wow-value";
     
     LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
-    [response addValue:headerValue forHeader:headerKey];
+    [response addValue:headerValue forHTTPHeader:headerKey];
     CFHTTPMessageRef httpMessage = response.httpMessage;
     
     NSString *testHeaderValue = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(httpMessage, (__bridge CFStringRef)headerKey);
     XCTAssertEqualObjects(testHeaderValue, headerValue);
+    
+    [response deleteHTTPHeader:headerKey];
+    XCTAssertNil([response valueForHTTPHeader:headerKey]);
 }
 
 @end
