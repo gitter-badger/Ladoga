@@ -15,7 +15,7 @@
 typedef void(^ConnectionHandler)();
 
 
-@interface TestServer : NSObject <LDTcpServerDelegate>
+@interface TestServer : NSObject <LDTCPServerDelegate>
 @property (nonatomic, strong, readwrite) ConnectionHandler handler;
 @end
 
@@ -35,13 +35,13 @@ typedef void(^ConnectionHandler)();
 @implementation LDTcpServerTest
 
 - (void)testInitialization {
-    LDTcpServer *tcpServer = [[LDTcpServer alloc] initWithAddress:@"127.0.0.1"
+    LDTCPServer *tcpServer = [[LDTCPServer alloc] initWithAddress:@"127.0.0.1"
                                                           andPort:55300];
     XCTAssertNotNil(tcpServer);
 }
 
 - (void)testBinding {
-    LDTcpServer *tcpServer = [[LDTcpServer alloc] initWithAddress:@"127.0.0.1"
+    LDTCPServer *tcpServer = [[LDTCPServer alloc] initWithAddress:@"127.0.0.1"
                                                           andPort:55300];
     
     [tcpServer startWithRunLoop:CFRunLoopGetMain()];
@@ -53,7 +53,7 @@ typedef void(^ConnectionHandler)();
 }
 
 - (void)testDefaultValuesOnBinding {
-    LDTcpServer *tcpServer = [[LDTcpServer alloc] initWithAddress:nil
+    LDTCPServer *tcpServer = [[LDTCPServer alloc] initWithAddress:nil
                                                           andPort:0];
     
     [tcpServer startWithRunLoop:CFRunLoopGetMain()];
@@ -65,9 +65,9 @@ typedef void(^ConnectionHandler)();
 }
 
 - (void)testRebinding {
-    LDTcpServer *tcpServerFirst = [[LDTcpServer alloc] initWithAddress:@"127.0.0.1"
+    LDTCPServer *tcpServerFirst = [[LDTCPServer alloc] initWithAddress:@"127.0.0.1"
                                                                andPort:55301];
-    LDTcpServer *tcpServerSecond = [[LDTcpServer alloc] initWithAddress:@"127.0.0.1"
+    LDTCPServer *tcpServerSecond = [[LDTCPServer alloc] initWithAddress:@"127.0.0.1"
                                                                 andPort:55301];
     
     XCTAssertTrue([tcpServerFirst startWithRunLoop:CFRunLoopGetMain()]);
@@ -88,7 +88,7 @@ typedef void(^ConnectionHandler)();
         [connectionExpectation fulfill];
     };
     
-    LDTcpServer *tcpServer = [[LDTcpServer alloc] initWithAddress:@"127.0.0.1"
+    LDTCPServer *tcpServer = [[LDTCPServer alloc] initWithAddress:@"127.0.0.1"
                                                           andPort:55302];
     tcpServer.tcpServerDelegate = testServer;
     [tcpServer startWithRunLoop:CFRunLoopGetMain()];

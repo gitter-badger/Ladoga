@@ -6,21 +6,21 @@
 //  Copyright © 2015 Alexander Perechnev. All rights reserved.
 //
 
-#import "LDHttpServer.h"
-#import "LDTcpServer.h"
+#import "LDHTTPServer.h"
+#import "LDTCPServer.h"
 
 
 static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 
 
-@interface LDHttpServer ()
+@interface LDHTTPServer ()
 
 - (LDHTTPRequest *)readRequest:(CFSocketNativeHandle)socket;
 - (void)sendResponse:(LDHTTPResponse *)response toSocket:(CFSocketNativeHandle)socket;
 @end
 
 
-@implementation LDHttpServer
+@implementation LDHTTPServer
 
 - (instancetype)initWithAddress:(NSString *)address andPort:(NSInteger)port {
     self = [super initWithAddress:address andPort:port];

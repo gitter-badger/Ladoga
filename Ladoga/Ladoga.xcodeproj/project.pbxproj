@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		3205C0C11C1D4EB500C1F5B0 /* Ladoga.h in Headers */ = {isa = PBXBuildFile; fileRef = 3205C0C01C1D4EB500C1F5B0 /* Ladoga.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3205C0C81C1D4EB500C1F5B0 /* Ladoga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3205C0BD1C1D4EB500C1F5B0 /* Ladoga.framework */; };
-		3205C0D91C1D4ECE00C1F5B0 /* LDTcpServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3205C0D71C1D4ECE00C1F5B0 /* LDTcpServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3205C0DA1C1D4ECE00C1F5B0 /* LDTcpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3205C0D81C1D4ECE00C1F5B0 /* LDTcpServer.m */; };
+		3205C0D91C1D4ECE00C1F5B0 /* LDTCPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3205C0D71C1D4ECE00C1F5B0 /* LDTCPServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3205C0DA1C1D4ECE00C1F5B0 /* LDTCPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3205C0D81C1D4ECE00C1F5B0 /* LDTCPServer.m */; };
 		3205C0DF1C1D581F00C1F5B0 /* LDTcpServerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3205C0DE1C1D581F00C1F5B0 /* LDTcpServerTest.m */; };
-		3235A2D91C1DAD8100D522EE /* LDHttpServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3235A2D71C1DAD8100D522EE /* LDHttpServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3235A2DA1C1DAD8100D522EE /* LDHttpServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2D81C1DAD8100D522EE /* LDHttpServer.m */; };
+		3235A2D91C1DAD8100D522EE /* LDHTTPServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3235A2D71C1DAD8100D522EE /* LDHTTPServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3235A2DA1C1DAD8100D522EE /* LDHTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2D81C1DAD8100D522EE /* LDHTTPServer.m */; };
 		3235A2DD1C1DD2E600D522EE /* LDHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 3235A2DB1C1DD2E600D522EE /* LDHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3235A2DE1C1DD2E600D522EE /* LDHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2DC1C1DD2E600D522EE /* LDHTTPRequest.m */; };
 		3235A2E11C1DD2F400D522EE /* LDHTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,11 +39,11 @@
 		3205C0C21C1D4EB500C1F5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3205C0C71C1D4EB500C1F5B0 /* LadogaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LadogaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3205C0CE1C1D4EB500C1F5B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3205C0D71C1D4ECE00C1F5B0 /* LDTcpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDTcpServer.h; sourceTree = "<group>"; };
-		3205C0D81C1D4ECE00C1F5B0 /* LDTcpServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDTcpServer.m; sourceTree = "<group>"; };
+		3205C0D71C1D4ECE00C1F5B0 /* LDTCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDTCPServer.h; sourceTree = "<group>"; };
+		3205C0D81C1D4ECE00C1F5B0 /* LDTCPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDTCPServer.m; sourceTree = "<group>"; };
 		3205C0DE1C1D581F00C1F5B0 /* LDTcpServerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDTcpServerTest.m; sourceTree = "<group>"; };
-		3235A2D71C1DAD8100D522EE /* LDHttpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHttpServer.h; sourceTree = "<group>"; };
-		3235A2D81C1DAD8100D522EE /* LDHttpServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHttpServer.m; sourceTree = "<group>"; };
+		3235A2D71C1DAD8100D522EE /* LDHTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPServer.h; sourceTree = "<group>"; };
+		3235A2D81C1DAD8100D522EE /* LDHTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPServer.m; sourceTree = "<group>"; };
 		3235A2DB1C1DD2E600D522EE /* LDHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPRequest.h; sourceTree = "<group>"; };
 		3235A2DC1C1DD2E600D522EE /* LDHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequest.m; sourceTree = "<group>"; };
 		3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPResponse.h; sourceTree = "<group>"; };
@@ -95,10 +95,10 @@
 			children = (
 				3205C0C01C1D4EB500C1F5B0 /* Ladoga.h */,
 				3205C0C21C1D4EB500C1F5B0 /* Info.plist */,
-				3205C0D71C1D4ECE00C1F5B0 /* LDTcpServer.h */,
-				3205C0D81C1D4ECE00C1F5B0 /* LDTcpServer.m */,
-				3235A2D71C1DAD8100D522EE /* LDHttpServer.h */,
-				3235A2D81C1DAD8100D522EE /* LDHttpServer.m */,
+				3205C0D71C1D4ECE00C1F5B0 /* LDTCPServer.h */,
+				3205C0D81C1D4ECE00C1F5B0 /* LDTCPServer.m */,
+				3235A2D71C1DAD8100D522EE /* LDHTTPServer.h */,
+				3235A2D81C1DAD8100D522EE /* LDHTTPServer.m */,
 				3235A2DB1C1DD2E600D522EE /* LDHTTPRequest.h */,
 				3235A2DC1C1DD2E600D522EE /* LDHTTPRequest.m */,
 				3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */,
@@ -128,9 +128,9 @@
 			files = (
 				3205C0C11C1D4EB500C1F5B0 /* Ladoga.h in Headers */,
 				3235A2E11C1DD2F400D522EE /* LDHTTPResponse.h in Headers */,
-				3205C0D91C1D4ECE00C1F5B0 /* LDTcpServer.h in Headers */,
+				3205C0D91C1D4ECE00C1F5B0 /* LDTCPServer.h in Headers */,
 				3235A2DD1C1DD2E600D522EE /* LDHTTPRequest.h in Headers */,
-				3235A2D91C1DAD8100D522EE /* LDHttpServer.h in Headers */,
+				3235A2D91C1DAD8100D522EE /* LDHTTPServer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,10 +231,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3235A2DA1C1DAD8100D522EE /* LDHttpServer.m in Sources */,
+				3235A2DA1C1DAD8100D522EE /* LDHTTPServer.m in Sources */,
 				3235A2DE1C1DD2E600D522EE /* LDHTTPRequest.m in Sources */,
 				3235A2E21C1DD2F400D522EE /* LDHTTPResponse.m in Sources */,
-				3205C0DA1C1D4ECE00C1F5B0 /* LDTcpServer.m in Sources */,
+				3205C0DA1C1D4ECE00C1F5B0 /* LDTCPServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

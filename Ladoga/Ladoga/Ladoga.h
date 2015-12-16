@@ -12,7 +12,7 @@ FOUNDATION_EXPORT double LadogaVersionNumber;
 
 FOUNDATION_EXPORT const unsigned char LadogaVersionString[];
 
-#import <Ladoga/LDTcpServer.h>
-#import <Ladoga/LDHttpServer.h>
-#import <Ladoga/LDHttpRequest.h>
-#import <Ladoga/LDHttpResponse.h>
+#import <Ladoga/LDTCPServer.h>
+#import <Ladoga/LDHTTPServer.h>
+#import <Ladoga/LDHTTPRequest.h>
+#import <Ladoga/LDHTTPResponse.h>

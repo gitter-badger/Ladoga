@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LDTcpServer.h"
+#import "LDTCPServer.h"
 #import "LDHTTPRequest.h"
 #import "LDHTTPResponse.h"
 
@@ -26,13 +26,13 @@ typedef enum : NSInteger {
 } LDHTTPMethod;
 
 
-@protocol LDHttpServerDelegate <NSObject>
+@protocol LDHTTPServerDelegate <NSObject>
 @required
 - (LDHTTPResponse *)processRequest:(LDHTTPRequest *)request;
 @end
 
 
-@interface LDHttpServer : LDTcpServer <LDTcpServerDelegate>
+@interface LDHTTPServer : LDTCPServer <LDTCPServerDelegate>
 
-@property (nonatomic, weak, readwrite) id <LDHttpServerDelegate> httpServerDelegate;
+@property (nonatomic, weak, readwrite) id <LDHTTPServerDelegate> httpServerDelegate;
 @end

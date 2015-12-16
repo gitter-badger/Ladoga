@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol LDTcpServerDelegate <NSObject>
+@protocol LDTCPServerDelegate <NSObject>
 @optional
 - (void)acceptConnection:(CFSocketNativeHandle)socketNativeHandle;
 @end
 
 
 
-@interface LDTcpServer : NSObject
+@interface LDTCPServer : NSObject
 
 /**
  IP address of interface where server is running.
@@ -31,7 +31,7 @@
 /**
  An callback that will be called by server when new connection accepted.
  */
-@property (nonatomic, weak, readwrite) id <LDTcpServerDelegate> tcpServerDelegate;
+@property (nonatomic, weak, readwrite) id <LDTCPServerDelegate> tcpServerDelegate;
 
 /*
  *  You can't initialize server without required parameters.

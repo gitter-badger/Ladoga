@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "LDHTTPRequest.h"
-#import "LDHttpServer.h"
+#import "LDHTTPServer.h"
 
 
 @interface LDHTTPRequestTest : XCTestCase

@@ -15,7 +15,7 @@
 typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
 
 
-@interface TestHTTPServerDelegate : NSObject <LDHttpServerDelegate>
+@interface TestHTTPServerDelegate : NSObject <LDHTTPServerDelegate>
 @property (nonatomic, strong, readwrite) ConnectionHandler handler;
 @end
 
@@ -36,7 +36,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
 @implementation LDHTTPServerTest
 
 - (void)testInitialization {
-    LDHttpServer *server = [[LDHttpServer alloc] initWithAddress:@"127.0.0.1"
+    LDHTTPServer *server = [[LDHTTPServer alloc] initWithAddress:@"127.0.0.1"
                                                          andPort:55310];
     XCTAssertNotNil(server);
 }
@@ -53,7 +53,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
         return nil;
     };
     
-    LDHttpServer *httpServer = [[LDHttpServer alloc] initWithAddress:TEST_HOST
+    LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
                                                              andPort:TEST_PORT];
     httpServer.httpServerDelegate = testServer;
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
@@ -86,7 +86,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
         return response;
     };
     
-    LDHttpServer *httpServer = [[LDHttpServer alloc] initWithAddress:TEST_HOST
+    LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
                                                              andPort:TEST_PORT];
     httpServer.httpServerDelegate = testServer;
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
@@ -118,7 +118,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
     
     XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
     
-    LDHttpServer *httpServer = [[LDHttpServer alloc] initWithAddress:TEST_HOST
+    LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
                                                              andPort:TEST_PORT];
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
     
