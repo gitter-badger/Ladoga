@@ -116,7 +116,7 @@ typedef void(^ConnectionHandler)();
         CFSocketConnectToAddress(socket, (__bridge CFDataRef)sockData, 4.f);
     });
     
-    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
         [tcpServer stop];
     }];
 }
