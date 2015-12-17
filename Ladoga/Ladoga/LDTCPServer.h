@@ -18,25 +18,25 @@
 /**
  @brief An class which implements the base TCP server.
  
- @discussion Actually you don't need to use this class since you want to run
-    an HTTP server. Use LDHTTPServer class, which inherits LDTCPServer and 
-    provides required functionality.
+ @discussion Actually you don't need to use this class since you want to run 
+ an HTTP server. Use LDHTTPServer class, which inherits LDTCPServer and 
+ provides required functionality.
  */
 @interface LDTCPServer : NSObject
 
 /**
  @brief IP address of interface where server is running.
  
- @discussion The default value is 0.0.0.0, which means that server is available
-                an all existing interfaces.
+ @discussion The default value is 0.0.0.0, which means that server is available 
+ to all existing interfaces.
  */
 @property (nonatomic, strong, readonly) NSString *address;
 
 /**
  @brief Port number that server is binded to.
  
- @discussion The default value is 0, which means that server will choose one of
-                available ports and bind to it.
+ @discussion The default value is 0, which means that server will choose one of 
+ available ports and bind to it.
  */
 @property (nonatomic, assign, readonly) NSInteger port;
 
@@ -64,6 +64,7 @@
 
 /**
  @brief Binds server to TCP port and start listening for new connections.
+ 
  @return Return value indicates if server runned successfully.
  */
 - (BOOL)startWithRunLoop:(CFRunLoopRef)runLoop;
