@@ -12,18 +12,16 @@
 @implementation MyServerExample
 
 - (void)start {
-    LDHttpServer *server = [[LDHttpServer alloc] initWithAddress:@"127.0.0.1"
+    LDHTTPServer *server = [[LDHTTPServer alloc] initWithAddress:@"127.0.0.1"
                                                          andPort:8080];
     server.httpServerDelegate = self;
     [server startWithRunLoop:CFRunLoopGetMain()];
     CFRunLoopRun();
 }
 
-#pragma mark - Http server delegate
-
 - (LDHTTPResponse *)processRequest:(LDHTTPRequest *)request {
     LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
-    [response addValue:@"text/html;charset=utf-8" forHeader:@"Content-Type"];
+    [response addValue:@"text/html;charset=utf-8" forHTTPHeader:@"Content-Type"];
     response.body = @"<html><head><title>My Example</title></head><body>Hello, world!</body></html>";
     return response;
 }

@@ -7,7 +7,7 @@
 //
 
 #import "LDHTTPRequest.h"
-#import "LDHttpServer.h"
+#import "LDHTTPServer.h"
 
 
 @interface LDHTTPRequest ()
@@ -18,20 +18,29 @@
 
 @implementation LDHTTPRequest
 
+@synthesize HTTPHeaders = _HTTPHeaders;
+
 - (instancetype)initWithMessage:(CFHTTPMessageRef)httpMessage {
     self = [super init];
     if (self) {
-        _userAgent = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(httpMessage, (__bridge CFStringRef)@"User-Agent");
-        _uri = (__bridge NSString *)CFHTTPMessageCopyRequestURL(httpMessage);
-        _method = [self httpMethodFromString:(__bridge NSString *)CFHTTPMessageCopyRequestMethod(httpMessage)];
+        _uri = (__bridge NSURL *)CFHTTPMessageCopyRequestURL(httpMessage);
+        _method = [self httpMethodFromString:(__bridge_transfer NSString *)CFHTTPMessageCopyRequestMethod(httpMessage)];
+        _HTTPHeaders = (__bridge_transfer NSDictionary *)CFHTTPMessageCopyAllHeaderFields(httpMessage);
     }
     return self;
+}
+
+#pragma mark - Public methods
+
+- (NSString *)valueForHTTPHeader:(NSString *)header {
+    return [self.HTTPHeaders objectForKey:header];
 }
 
 #pragma mark - Internal methods
 
 - (LDHTTPMethod)httpMethodFromString:(NSString *)methodString {
     NSString *method = [methodString uppercaseString];
+    
     if ([method isEqualToString:@"GET"]) {
         return LDHTTPMethodGET;
     }
@@ -44,6 +53,22 @@
     if ([methodString isEqualToString:@"DELETE"]) {
         return LDHTTPMethodDELETE;
     }
+    if ([methodString isEqualToString:@"HEAD"]) {
+        return LDHTTPMethodHEAD;
+    }
+    if ([methodString isEqualToString:@"PATCH"]) {
+        return LDHTTPMethodPATCH;
+    }
+    if ([methodString isEqualToString:@"OPTIONS"]) {
+        return LDHTTPMethodOPTIONS;
+    }
+    if ([methodString isEqualToString:@"TRACE"]) {
+        return LDHTTPMethodTRACE;
+    }
+    if ([methodString isEqualToString:@"CONNECT"]) {
+        return LDHTTPMethodCONNECT;
+    }
+    
     return LDHTTPMethodUnknown;
 }
 

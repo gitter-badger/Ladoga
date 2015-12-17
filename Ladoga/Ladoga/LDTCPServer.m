@@ -6,7 +6,7 @@
 //  Copyright © 2015 Alexander Perechnev. All rights reserved.
 //
 
-#import "LDTcpServer.h"
+#import "LDTCPServer.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -19,7 +19,7 @@ void acceptConnectionCallback(CFSocketRef s,
                               void *info);
 
 
-@interface LDTcpServer ()
+@interface LDTCPServer ()
 
 @property (nonatomic, strong, readwrite) NSData *addressData;
 @property (nonatomic, assign, readwrite) CFSocketRef listeningSocket;
@@ -30,7 +30,7 @@ void acceptConnectionCallback(CFSocketRef s,
 @end
 
 
-@implementation LDTcpServer
+@implementation LDTCPServer
 
 - (instancetype)initWithAddress:(NSString *)address andPort:(NSInteger)port {
     self = [super init];
@@ -134,7 +134,7 @@ void acceptConnectionCallback(CFSocketRef s,
                               CFDataRef address,
                               const void *data,
                               void *info) {
-    LDTcpServer *server = (__bridge LDTcpServer *)info;
+    LDTCPServer *server = (__bridge LDTCPServer *)info;
     CFSocketNativeHandle nativeSocketHandle = *(CFSocketNativeHandle *)data;
     [server handleNewNativeSocket:nativeSocketHandle];
 }
