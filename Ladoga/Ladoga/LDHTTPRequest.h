@@ -9,15 +9,38 @@
 #import <Foundation/Foundation.h>
 
 
+/**
+ @brief An class that represents HTTP requests.
+ */
 @interface LDHTTPRequest : NSObject
 
+/**
+ @brief HTTP method of request.
+ */
 @property (nonatomic, assign, readonly) NSInteger method;
+
+/**
+ @brief Request URI.
+ */
 @property (nonatomic, strong, readonly) NSURL *uri;
+
+/**
+ @brief Request headers.
+ */
 @property (nonatomic, strong, readonly) NSDictionary *HTTPHeaders;
 
 - (instancetype)init NS_UNAVAILABLE;
 
 - (instancetype)initWithMessage:(CFHTTPMessageRef)httpMessage;
 
+/**
+ @brief Access to pointed HTTP header.
+ 
+ @param The name of HTTP header, e.g. @"User-Agent".
+ 
+ @return The value of the header. Returns nil if there is no header or
+ no value.
+ */
 - (NSString *)valueForHTTPHeader:(NSString *)header;
+
 @end
