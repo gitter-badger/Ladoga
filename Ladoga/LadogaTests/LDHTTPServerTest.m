@@ -78,8 +78,8 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
     
     XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
     
-    TestHTTPServerDelegate *testServer = [[TestHTTPServerDelegate alloc] init];
-    testServer.handler = ^LDHTTPResponse*(LDHTTPRequest *request) {
+    TestHTTPServerDelegate *testServerDelegate = [[TestHTTPServerDelegate alloc] init];
+    testServerDelegate.handler = ^LDHTTPResponse*(LDHTTPRequest *request) {
         LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
         response.code = 200;
         response.body = TEST_BODY;
@@ -88,11 +88,12 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
     
     LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
                                                              andPort:TEST_PORT];
-    httpServer.httpServerDelegate = testServer;
+    httpServer.httpServerDelegate = testServerDelegate;
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+        [operationQueue addOperationWithBlock:^{
             NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
             
             NSError *error;
@@ -104,7 +105,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
             XCTAssertEqualObjects(responseString, TEST_BODY);
             
             [requestExpectation fulfill];
-        });
+        }];
     });
     
     [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
@@ -123,19 +124,19 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
+        NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+        [operationQueue addOperationWithBlock:^{
+            NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", TEST_HOST, @(TEST_PORT)]];
             
-            NSError *error;
-            NSString *responseString = [NSString stringWithContentsOfURL:requestURL
-                                                                encoding:NSUTF8StringEncoding
-                                                                   error:&error];
-            XCTAssertNil(error);
-            XCTAssertNotNil(responseString);
-            XCTAssertEqualObjects(responseString, @"Internal server error");
-            
-            [requestExpectation fulfill];
-        });
+            [[[NSURLSession sharedSession] dataTaskWithURL:requestURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                
+                XCTAssertNil(error);
+                XCTAssertNotNil(response);
+                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], 500);
+                
+                [requestExpectation fulfill];
+            }] resume];
+        }];
     });
     
     [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
