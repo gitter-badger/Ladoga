@@ -128,7 +128,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
         [operationQueue addOperationWithBlock:^{
             NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", TEST_HOST, @(TEST_PORT)]];
             
-            [[[NSURLSession sharedSession] dataTaskWithURL:requestURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            [[[NSURLSession sharedSession] dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 
                 XCTAssertNil(error);
                 XCTAssertNotNil(response);
