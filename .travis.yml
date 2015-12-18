@@ -1,3 +1,6 @@
 language: objective-c
-xcode_workspace: Ladoga.xcworkspace
-xcode_scheme: Ladoga
+script:
+  - xctool -workspace Ladoga.xcworkspace -scheme Ladoga -sdk macosx ONLY_ACTIVE_ARCH=NO
+  - xctool test -workspace Ladoga.xcworkspace -scheme Ladoga -sdk macosx ONLY_ACTIVE_ARCH=NO
+  - xctool -workspace Ladoga.xcworkspace -scheme Ladoga -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xctool test -workspace Ladoga.xcworkspace -scheme Ladoga -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
