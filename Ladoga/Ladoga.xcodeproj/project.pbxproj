@@ -21,10 +21,11 @@
 		3235A2E71C1DE54800D522EE /* LDHTTPResponseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */; };
 		3235A2E91C1E6F8900D522EE /* LDHTTPRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2E81C1E6F8900D522EE /* LDHTTPRequestTest.m */; };
 		3235A2EB1C1E8C1C00D522EE /* LDHTTPServerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3235A2EA1C1E8C1C00D522EE /* LDHTTPServerTest.m */; };
-		32920DB71C24BC9200AE7EC4 /* LDHTMLTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 32920DB51C24BC9200AE7EC4 /* LDHTMLTemplate.h */; };
+		32920DB71C24BC9200AE7EC4 /* LDHTMLTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 32920DB51C24BC9200AE7EC4 /* LDHTMLTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32920DB81C24BC9200AE7EC4 /* LDHTMLTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DB61C24BC9200AE7EC4 /* LDHTMLTemplate.m */; };
 		32920DBB1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DBA1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m */; };
 		32920DBD1C24C9DD00AE7EC4 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DBC1C24C9DD00AE7EC4 /* index.html */; };
+		32920DC31C24D53B00AE7EC4 /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DC21C24D53B00AE7EC4 /* error.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		32920DB61C24BC9200AE7EC4 /* LDHTMLTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTMLTemplate.m; sourceTree = "<group>"; };
 		32920DBA1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTMLTemplateTest.m; sourceTree = "<group>"; };
 		32920DBC1C24C9DD00AE7EC4 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		32920DC21C24D53B00AE7EC4 /* error.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			children = (
 				32920DB51C24BC9200AE7EC4 /* LDHTMLTemplate.h */,
 				32920DB61C24BC9200AE7EC4 /* LDHTMLTemplate.m */,
+				32920DC21C24D53B00AE7EC4 /* error.html */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32920DC31C24D53B00AE7EC4 /* error.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
