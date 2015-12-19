@@ -1,4 +1,4 @@
-[![Travis CI](https://api.travis-ci.org/aperechnev/Ladoga.svg?branch=develop)](https://travis-ci.org/aperechnev/Ladoga)
+[![Travis CI](https://api.travis-ci.org/aperechnev/Ladoga.svg?branch=develop)](https://travis-ci.org/aperechnev/Ladoga) [![CocoaPods](https://cocoapod-badges.herokuapp.com/v/Ladoga/badge.png)](http://cocoapods.org/pods/Ladoga) ![CocoaPods](https://cocoapod-badges.herokuapp.com/l/Ladoga/badge.png)
 
 # Ladoga
 Ladoga is an lightweight and easy-to-use HTTP framework that makes it possible to write web-applications in Objective-C.

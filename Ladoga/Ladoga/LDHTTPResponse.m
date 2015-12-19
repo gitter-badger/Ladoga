@@ -28,9 +28,17 @@
 }
 
 + (instancetype)internalServerErrorResponse {
+    NSString *errorTemplatePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"error.html"];
+    
     LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
     response.code = 500;
-    response.body = @"Internal server error";
+    
+    NSDictionary *params = @{ @"ErrorCode": @"500",
+                              @"ErrorTitle": @"Internal server error" };
+    
+    response.body = [LDHTMLTemplate renderTemplateAtPath:errorTemplatePath
+                                          withParameters:params];
+    
     return response;
 }
 
