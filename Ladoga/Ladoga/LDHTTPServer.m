@@ -15,6 +15,8 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 
 @interface LDHTTPServer ()
 
+@property (nonatomic, strong, readonly) NSMutableDictionary *requestHandlers;
+
 - (LDHTTPRequest *)readRequest:(CFSocketNativeHandle)socket;
 - (void)sendResponse:(LDHTTPResponse *)response toSocket:(CFSocketNativeHandle)socket;
 @end
@@ -26,6 +28,7 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
     self = [super initWithAddress:address andPort:port];
     if (self) {
         self.tcpServerDelegate = self;
+        _requestHandlers = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -35,22 +38,35 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 - (void)acceptConnection:(CFSocketNativeHandle)socketNativeHandle {
     LDHTTPRequest *request = [self readRequest:socketNativeHandle];
     
-    if (self.httpServerDelegate) {
-        LDHTTPResponse *response = [self.httpServerDelegate processRequest:request];
-        if (response) {
-            [self sendResponse:response toSocket:socketNativeHandle];
-        }
-        else {
-            [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
-                      toSocket:socketNativeHandle];
-        }
-    }
-    else {
-        [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
-                  toSocket:socketNativeHandle];
+    if (request.method == LDHTTPMethodUnknown) {
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_NOT_IMPLEMENTED];
+        [self sendResponse:response toSocket:socketNativeHandle];
+        return;
     }
     
-    close(socketNativeHandle);
+    LDHTTPRequestHandler *requestHandler = [self.requestHandlers objectForKey:request.uri.relativePath];
+    if (requestHandler == nil) {
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_NOT_FOUND];
+        [self sendResponse:response toSocket:socketNativeHandle];
+        return;
+    }
+    
+    if ([requestHandler.methods containsObject:@(request.method)] == NO) {
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_METHOD_NOT_ALLOWED];
+        [self sendResponse:response toSocket:socketNativeHandle];
+        return;
+    }
+    
+    LDHTTPResponse *response = [requestHandler.handler performSelector:requestHandler.selector
+                                                            withObject:request];
+    
+    if (response) {
+        [self sendResponse:response toSocket:socketNativeHandle];
+    }
+    else {
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_INTERNAL_SERVER_ERROR];
+        [self sendResponse:response toSocket:socketNativeHandle];
+    }
 }
 
 #pragma mark - Internal methods
@@ -71,6 +87,12 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 - (void)sendResponse:(LDHTTPResponse *)response toSocket:(CFSocketNativeHandle)socket {
     NSData *data = (__bridge_transfer NSData *)CFHTTPMessageCopySerializedMessage(response.httpMessage);
     write(socket, [data bytes], [data length]);
+}
+
+#pragma mark - Public interface
+
+- (void)addRequestHandler:(LDHTTPRequestHandler *)requestHandler forPath:(NSString *)path {
+    [self.requestHandlers addEntriesFromDictionary:@{ path: requestHandler }];
 }
 
 @end

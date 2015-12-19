@@ -19,8 +19,8 @@
  
  @discussion Call this method to render your template and get an HTML page.
  
- @param Full path to template file.
- @param Template parameters.
+ @param filepath Full path to template file.
+ @param parameters Template parameters.
  
  @return Rendered template as a string, that represents HTML page.
  */

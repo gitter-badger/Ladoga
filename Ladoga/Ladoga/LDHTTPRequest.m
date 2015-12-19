@@ -18,16 +18,23 @@
 
 @implementation LDHTTPRequest
 
-@synthesize HTTPHeaders = _HTTPHeaders;
-
 - (instancetype)initWithMessage:(CFHTTPMessageRef)httpMessage {
     self = [super init];
     if (self) {
         _uri = (__bridge NSURL *)CFHTTPMessageCopyRequestURL(httpMessage);
         _method = [self httpMethodFromString:(__bridge_transfer NSString *)CFHTTPMessageCopyRequestMethod(httpMessage)];
+        _httpVersion = (__bridge_transfer NSString *)(CFHTTPMessageCopyVersion(httpMessage));
         _HTTPHeaders = (__bridge_transfer NSDictionary *)CFHTTPMessageCopyAllHeaderFields(httpMessage);
+        _arguments = [self argumentsForHTTPMessage:httpMessage];
     }
     return self;
+}
+
+- (NSDictionary *)argumentsForHTTPMessage:(CFHTTPMessageRef)message {
+    if (_method == LDHTTPMethodGET || _method == LDHTTPMethodHEAD) {
+        return [self parseArgumentsFromURL:self.uri.relativeString];
+    }
+    return @{};
 }
 
 #pragma mark - Public methods
@@ -44,32 +51,40 @@
     if ([method isEqualToString:@"GET"]) {
         return LDHTTPMethodGET;
     }
-    if ([method isEqualToString:@"POST"]) {
-        return LDHTTPMethodPOST;
-    }
-    if ([methodString isEqualToString:@"PUT"]) {
-        return LDHTTPMethodPUT;
-    }
-    if ([methodString isEqualToString:@"DELETE"]) {
-        return LDHTTPMethodDELETE;
-    }
     if ([methodString isEqualToString:@"HEAD"]) {
         return LDHTTPMethodHEAD;
     }
-    if ([methodString isEqualToString:@"PATCH"]) {
-        return LDHTTPMethodPATCH;
-    }
-    if ([methodString isEqualToString:@"OPTIONS"]) {
-        return LDHTTPMethodOPTIONS;
-    }
-    if ([methodString isEqualToString:@"TRACE"]) {
-        return LDHTTPMethodTRACE;
-    }
-    if ([methodString isEqualToString:@"CONNECT"]) {
-        return LDHTTPMethodCONNECT;
-    }
     
     return LDHTTPMethodUnknown;
+}
+
+#pragma mark - Arguments parsing
+
+- (NSDictionary *)parseArgumentsFromURL:(NSString *)uri {
+    if ([uri rangeOfString:@"?"].location == NSNotFound) {
+        return @{};
+    }
+    
+    NSMutableDictionary *arguments = [[NSMutableDictionary alloc] init];
+    
+    NSString *argumentsString = [[uri componentsSeparatedByString:@"?"] lastObject];
+    if (argumentsString.length == 0) {
+        return @{};
+    }
+    
+    NSArray *argumentStringList = [argumentsString componentsSeparatedByString:@"&"];
+    for (NSString *argumentItem in argumentStringList) {
+        NSArray *argumentComponents = [argumentItem componentsSeparatedByString:@"="];
+        
+        NSString *paramName = argumentComponents[0];
+        NSString *paramValue = argumentComponents.count > 1 ? argumentComponents[1] : @"";
+        
+        [arguments addEntriesFromDictionary:@{ paramName: paramValue }];
+    }
+    
+    NSLog(@"%@", arguments);
+    
+    return [arguments copy];
 }
 
 @end

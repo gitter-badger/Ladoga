@@ -8,25 +8,10 @@
 
 #import <XCTest/XCTest.h>
 #import "Ladoga.h"
+#import "LDTestServer.h"
+#import "LDHTTPRequestHandler.h"
 #import <netinet/in.h>
 #include <arpa/inet.h>
-
-
-typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
-
-
-@interface TestHTTPServerDelegate : NSObject <LDHTTPServerDelegate>
-@property (nonatomic, strong, readwrite) ConnectionHandler handler;
-@end
-
-@implementation TestHTTPServerDelegate
-- (LDHTTPResponse *)processRequest:(LDHTTPRequest *)request {
-    if (self.handler) {
-        return self.handler(request);
-    }
-    return nil;
-}
-@end
 
 
 @interface LDHTTPServerTest : XCTestCase
@@ -41,28 +26,29 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
     XCTAssertNotNil(server);
 }
 
-- (void)testConnectionWithDelegateAccepting {
+- (void)testNotImplementedResponse {
     NSString * const TEST_HOST = @"127.0.0.1";
     const NSInteger TEST_PORT = 55311;
     
-    XCTestExpectation *connectionWithDelegateExpectation = [self expectationWithDescription:@"connection with delegate accepted"];
-    
-    TestHTTPServerDelegate *testServer = [[TestHTTPServerDelegate alloc] init];
-    testServer.handler = ^LDHTTPResponse*(LDHTTPRequest *request) {
-        [connectionWithDelegateExpectation fulfill];
-        return nil;
-    };
+    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
     
     LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
                                                              andPort:TEST_PORT];
-    httpServer.httpServerDelegate = testServer;
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
-            NSData *data = [NSData dataWithContentsOfURL:requestURL];
-            XCTAssertNotNil(data);
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+            request.HTTPMethod = @"UNKNOWN";
+            
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                XCTAssertNil(error);
+                XCTAssertNotNil(response);
+                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], LD_HTTP_RESPONSE_CODE_NOT_IMPLEMENTED);
+                
+                [requestExpectation fulfill];
+            }] resume];
         });
     });
     
@@ -71,39 +57,29 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
     }];
 }
 
-- (void)testRequestHandling {
+- (void)testNotFoundResponse {
     NSString * const TEST_HOST = @"127.0.0.1";
     const NSInteger TEST_PORT = 55312;
-    NSString * const TEST_BODY = @"TEST_BODY";
     
     XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
     
-    TestHTTPServerDelegate *testServer = [[TestHTTPServerDelegate alloc] init];
-    testServer.handler = ^LDHTTPResponse*(LDHTTPRequest *request) {
-        LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
-        response.code = 200;
-        response.body = TEST_BODY;
-        return response;
-    };
-    
     LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
                                                              andPort:TEST_PORT];
-    httpServer.httpServerDelegate = testServer;
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
+            NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/nopage.html", TEST_HOST, @(TEST_PORT)]];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+            request.HTTPMethod = @"GET";
             
-            NSError *error;
-            NSString *responseString = [NSString stringWithContentsOfURL:requestURL
-                                                                encoding:NSUTF8StringEncoding
-                                                                   error:&error];
-            XCTAssertNil(error);
-            XCTAssertNotNil(responseString);
-            XCTAssertEqualObjects(responseString, TEST_BODY);
-            
-            [requestExpectation fulfill];
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                XCTAssertNil(error);
+                XCTAssertNotNil(response);
+                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], LD_HTTP_RESPONSE_CODE_NOT_FOUND);
+                
+                [requestExpectation fulfill];
+            }] resume];
         });
     });
     
@@ -112,28 +88,112 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
     }];
 }
 
-- (void)testNoDelegate {
+- (void)testNotAllowedResponse {
     NSString * const TEST_HOST = @"127.0.0.1";
     const NSInteger TEST_PORT = 55313;
     
-    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
+    LDTestServer *testHandler = [[LDTestServer alloc] init];
     
     LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
                                                              andPort:TEST_PORT];
+    
+    LDHTTPRequestHandler *requestHandler = [[LDHTTPRequestHandler alloc] initWithHandler:testHandler
+                                                                                selector:@selector(indexPage:)
+                                                                                 methods:@[ @(LDHTTPMethodGET) ]];
+    [httpServer addRequestHandler:requestHandler forPath:@"/index.html"];
     [httpServer startWithRunLoop:CFRunLoopGetMain()];
+    
+    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+            request.HTTPMethod = @"HEAD";
             
-            [[[NSURLSession sharedSession] dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 XCTAssertNil(error);
                 XCTAssertNotNil(response);
-                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], 500);
+                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], LD_HTTP_RESPONSE_CODE_METHOD_NOT_ALLOWED);
                 
-                NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                XCTAssertTrue([responseString rangeOfString:@"Internal server error"].location != NSNotFound);
+                [requestExpectation fulfill];
+            }] resume];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
+        [httpServer stop];
+    }];
+}
+
+- (void)testNoResponseFromHandler {
+    NSString * const TEST_HOST = @"127.0.0.1";
+    const NSInteger TEST_PORT = 55314;
+    
+    LDTestServer *testHandler = [[LDTestServer alloc] init];
+    
+    LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
+                                                             andPort:TEST_PORT];
+    
+    LDHTTPRequestHandler *requestHandler = [[LDHTTPRequestHandler alloc] initWithHandler:testHandler
+                                                                                selector:@selector(handleRequest:)
+                                                                                 methods:@[ @(LDHTTPMethodGET) ]];
+    [httpServer addRequestHandler:requestHandler forPath:@"/index.html"];
+    [httpServer startWithRunLoop:CFRunLoopGetMain()];
+    
+    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+            request.HTTPMethod = @"GET";
+            
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                XCTAssertNil(error);
+                XCTAssertNotNil(response);
+                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], LD_HTTP_RESPONSE_CODE_INTERNAL_SERVER_ERROR);
+                
+                [requestExpectation fulfill];
+            }] resume];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
+        [httpServer stop];
+    }];
+}
+
+- (void)testSuccessResponse {
+    NSString * const TEST_HOST = @"127.0.0.1";
+    const NSInteger TEST_PORT = 55315;
+    
+    LDTestServer *testHandler = [[LDTestServer alloc] init];
+    
+    LDHTTPServer *httpServer = [[LDHTTPServer alloc] initWithAddress:TEST_HOST
+                                                             andPort:TEST_PORT];
+    
+    LDHTTPRequestHandler *requestHandler = [[LDHTTPRequestHandler alloc] initWithHandler:testHandler
+                                                                                selector:@selector(indexPage:)
+                                                                                 methods:@[ @(LDHTTPMethodGET) ]];
+    [httpServer addRequestHandler:requestHandler forPath:@"/index.html"];
+    [httpServer startWithRunLoop:CFRunLoopGetMain()];
+    
+    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"connection accepted"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+            request.HTTPMethod = @"GET";
+            
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                XCTAssertNil(error);
+                XCTAssertNotNil(response);
+                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], LD_HTTP_RESPONSE_CODE_OK);
+                
+                NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                XCTAssertEqualObjects(responseBody, @"that's ok");
                 
                 [requestExpectation fulfill];
             }] resume];

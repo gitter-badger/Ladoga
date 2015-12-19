@@ -10,45 +10,23 @@
 #import "LDTCPServer.h"
 #import "LDHTTPRequest.h"
 #import "LDHTTPResponse.h"
-
-
-typedef enum : NSInteger {
-    LDHTTPMethodUnknown = -1,
-    LDHTTPMethodOPTIONS,
-    LDHTTPMethodGET,
-    LDHTTPMethodHEAD,
-    LDHTTPMethodPOST,
-    LDHTTPMethodPUT,
-    LDHTTPMethodPATCH,
-    LDHTTPMethodDELETE,
-    LDHTTPMethodTRACE,
-    LDHTTPMethodCONNECT
-} LDHTTPMethod;
+#import "LDHTTPRequestHandler.h"
 
 
 /**
- @brief Delegate that handles new requests.
- 
- @discussion You have to implement this protocol and set it to server's httpServerDelegate 
- to handle HTTP requests.
- */
-@protocol LDHTTPServerDelegate <NSObject>
-@required
-- (LDHTTPResponse *)processRequest:(LDHTTPRequest *)request;
-@end
-
-
-/**
- @brief This class implements HTTP server.
- 
- @discussion Use this class to build an HTTP server.
+ This class implements HTTP server.
  */
 @interface LDHTTPServer : LDTCPServer <LDTCPServerDelegate>
 
 /**
- @brief An delegate, that handles clients' requests.
+ @brief Sets an request handler for requests at specified path
  
- @discussion You must set this property to handle requests.
+ @discussion When server accepts HTTP request, it looks for request handlers who subscribed
+    to requested path and passes request to it.
+ 
+ @param requestHandler Request handler, that handles HTTP requests.
+ @param path A path where handler expects to recieve requests.
  */
-@property (nonatomic, weak, readwrite) id <LDHTTPServerDelegate> httpServerDelegate;
+- (void)addRequestHandler:(LDHTTPRequestHandler *)requestHandler forPath:(NSString *)path;
+
 @end
