@@ -57,8 +57,11 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
         return;
     }
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     LDHTTPResponse *response = [requestHandler.handler performSelector:requestHandler.selector
                                                             withObject:request];
+#pragma clang diagnostic pop
     
     if (response) {
         [self sendResponse:response toSocket:socketNativeHandle];
