@@ -14,12 +14,16 @@
 - (void)start {
     LDHTTPServer *server = [[LDHTTPServer alloc] initWithAddress:@"127.0.0.1"
                                                          andPort:8080];
-    server.httpServerDelegate = self;
+    
+    LDHTTPRequestHandler *mainPageHandler = [[LDHTTPRequestHandler alloc] initWithHandler:self
+                                                                                 selector:@selector(mainPage:)
+                                                                                  methods:@[ @(LDHTTPMethodGET) ]];
+    [server addRequestHandler:mainPageHandler forPath:@"/index.html"];
     [server startWithRunLoop:CFRunLoopGetMain()];
     CFRunLoopRun();
 }
 
-- (LDHTTPResponse *)processRequest:(LDHTTPRequest *)request {
+- (LDHTTPResponse *)mainPage:(LDHTTPRequest *)request {
     LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
     [response addValue:@"text/html;charset=utf-8" forHTTPHeader:@"Content-Type"];
     response.body = @"<html><head><title>My Example</title></head><body>Hello, world!</body></html>";

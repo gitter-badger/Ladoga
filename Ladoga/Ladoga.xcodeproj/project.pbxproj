@@ -26,6 +26,8 @@
 		32920DBB1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DBA1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m */; };
 		32920DBD1C24C9DD00AE7EC4 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DBC1C24C9DD00AE7EC4 /* index.html */; };
 		32920DC31C24D53B00AE7EC4 /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DC21C24D53B00AE7EC4 /* error.html */; };
+		32920DC61C256BFB00AE7EC4 /* LDHTTPRequestHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32920DC71C256BFB00AE7EC4 /* LDHTTPRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		32920DBA1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTMLTemplateTest.m; sourceTree = "<group>"; };
 		32920DBC1C24C9DD00AE7EC4 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		32920DC21C24D53B00AE7EC4 /* error.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
+		32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPRequestHandler.h; sourceTree = "<group>"; };
+		32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequestHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,8 @@
 				3235A2D81C1DAD8100D522EE /* LDHTTPServer.m */,
 				3235A2DB1C1DD2E600D522EE /* LDHTTPRequest.h */,
 				3235A2DC1C1DD2E600D522EE /* LDHTTPRequest.m */,
+				32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */,
+				32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */,
 				3235A2DF1C1DD2F400D522EE /* LDHTTPResponse.h */,
 				3235A2E01C1DD2F400D522EE /* LDHTTPResponse.m */,
 			);
@@ -159,6 +165,7 @@
 			files = (
 				3205C0C11C1D4EB500C1F5B0 /* Ladoga.h in Headers */,
 				32920DB71C24BC9200AE7EC4 /* LDHTMLTemplate.h in Headers */,
+				32920DC61C256BFB00AE7EC4 /* LDHTTPRequestHandler.h in Headers */,
 				3235A2E11C1DD2F400D522EE /* LDHTTPResponse.h in Headers */,
 				3205C0D91C1D4ECE00C1F5B0 /* LDTCPServer.h in Headers */,
 				3235A2DD1C1DD2E600D522EE /* LDHTTPRequest.h in Headers */,
@@ -265,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32920DC71C256BFB00AE7EC4 /* LDHTTPRequestHandler.m in Sources */,
 				32920DB81C24BC9200AE7EC4 /* LDHTMLTemplate.m in Sources */,
 				3235A2DA1C1DAD8100D522EE /* LDHTTPServer.m in Sources */,
 				3235A2DE1C1DD2E600D522EE /* LDHTTPRequest.m in Sources */,

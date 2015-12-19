@@ -18,13 +18,12 @@
 
 @implementation LDHTTPRequest
 
-@synthesize HTTPHeaders = _HTTPHeaders;
-
 - (instancetype)initWithMessage:(CFHTTPMessageRef)httpMessage {
     self = [super init];
     if (self) {
         _uri = (__bridge NSURL *)CFHTTPMessageCopyRequestURL(httpMessage);
         _method = [self httpMethodFromString:(__bridge_transfer NSString *)CFHTTPMessageCopyRequestMethod(httpMessage)];
+        _httpVersion = (__bridge_transfer NSString *)(CFHTTPMessageCopyVersion(httpMessage));
         _HTTPHeaders = (__bridge_transfer NSDictionary *)CFHTTPMessageCopyAllHeaderFields(httpMessage);
     }
     return self;
@@ -44,30 +43,30 @@
     if ([method isEqualToString:@"GET"]) {
         return LDHTTPMethodGET;
     }
-    if ([method isEqualToString:@"POST"]) {
-        return LDHTTPMethodPOST;
-    }
-    if ([methodString isEqualToString:@"PUT"]) {
-        return LDHTTPMethodPUT;
-    }
-    if ([methodString isEqualToString:@"DELETE"]) {
-        return LDHTTPMethodDELETE;
-    }
+//    if ([method isEqualToString:@"POST"]) {
+//        return LDHTTPMethodPOST;
+//    }
+//    if ([methodString isEqualToString:@"PUT"]) {
+//        return LDHTTPMethodPUT;
+//    }
+//    if ([methodString isEqualToString:@"DELETE"]) {
+//        return LDHTTPMethodDELETE;
+//    }
     if ([methodString isEqualToString:@"HEAD"]) {
         return LDHTTPMethodHEAD;
     }
-    if ([methodString isEqualToString:@"PATCH"]) {
-        return LDHTTPMethodPATCH;
-    }
-    if ([methodString isEqualToString:@"OPTIONS"]) {
-        return LDHTTPMethodOPTIONS;
-    }
-    if ([methodString isEqualToString:@"TRACE"]) {
-        return LDHTTPMethodTRACE;
-    }
-    if ([methodString isEqualToString:@"CONNECT"]) {
-        return LDHTTPMethodCONNECT;
-    }
+//    if ([methodString isEqualToString:@"PATCH"]) {
+//        return LDHTTPMethodPATCH;
+//    }
+//    if ([methodString isEqualToString:@"OPTIONS"]) {
+//        return LDHTTPMethodOPTIONS;
+//    }
+//    if ([methodString isEqualToString:@"TRACE"]) {
+//        return LDHTTPMethodTRACE;
+//    }
+//    if ([methodString isEqualToString:@"CONNECT"]) {
+//        return LDHTTPMethodCONNECT;
+//    }
     
     return LDHTTPMethodUnknown;
 }

@@ -9,6 +9,20 @@
 #import <Foundation/Foundation.h>
 
 
+typedef enum : NSInteger {
+    LDHTTPMethodUnknown = -1,
+//    LDHTTPMethodOPTIONS,
+    LDHTTPMethodGET,
+    LDHTTPMethodHEAD,
+//    LDHTTPMethodPOST,
+//    LDHTTPMethodPUT,
+//    LDHTTPMethodPATCH,
+//    LDHTTPMethodDELETE,
+//    LDHTTPMethodTRACE,
+//    LDHTTPMethodCONNECT
+} LDHTTPMethod;
+
+
 /**
  @brief An class that represents HTTP requests.
  */
@@ -23,6 +37,11 @@
  @brief Request URI.
  */
 @property (nonatomic, strong, readonly) NSURL *uri;
+
+/**
+ @brief HTTP version.
+ */
+@property (nonatomic, strong, readonly) NSString *httpVersion;
 
 /**
  @brief Request headers.

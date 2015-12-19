@@ -10,32 +10,7 @@
 #import "LDTCPServer.h"
 #import "LDHTTPRequest.h"
 #import "LDHTTPResponse.h"
-
-
-typedef enum : NSInteger {
-    LDHTTPMethodUnknown = -1,
-    LDHTTPMethodOPTIONS,
-    LDHTTPMethodGET,
-    LDHTTPMethodHEAD,
-    LDHTTPMethodPOST,
-    LDHTTPMethodPUT,
-    LDHTTPMethodPATCH,
-    LDHTTPMethodDELETE,
-    LDHTTPMethodTRACE,
-    LDHTTPMethodCONNECT
-} LDHTTPMethod;
-
-
-/**
- @brief Delegate that handles new requests.
- 
- @discussion You have to implement this protocol and set it to server's httpServerDelegate 
- to handle HTTP requests.
- */
-@protocol LDHTTPServerDelegate <NSObject>
-@required
-- (LDHTTPResponse *)processRequest:(LDHTTPRequest *)request;
-@end
+#import "LDHTTPRequestHandler.h"
 
 
 /**
@@ -45,10 +20,9 @@ typedef enum : NSInteger {
  */
 @interface LDHTTPServer : LDTCPServer <LDTCPServerDelegate>
 
+
 /**
- @brief An delegate, that handles clients' requests.
- 
- @discussion You must set this property to handle requests.
  */
-@property (nonatomic, weak, readwrite) id <LDHTTPServerDelegate> httpServerDelegate;
+- (void)addRequestHandler:(LDHTTPRequestHandler *)requestHandler forPath:(NSString *)path;
+
 @end

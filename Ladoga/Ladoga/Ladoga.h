@@ -17,3 +17,4 @@ FOUNDATION_EXPORT const unsigned char LadogaVersionString[];
 #import <Ladoga/LDHTTPRequest.h>
 #import <Ladoga/LDHTTPResponse.h>
 #import <Ladoga/LDHTMLTemplate.h>
+#import <Ladoga/LDHTTPRequestHandler.h>

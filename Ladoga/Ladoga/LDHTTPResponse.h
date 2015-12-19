@@ -68,4 +68,6 @@
  */
 + (instancetype)internalServerErrorResponse;
 
++ (instancetype)responseWithCode:(NSInteger)code andMessage:(NSString *)message;
+
 @end

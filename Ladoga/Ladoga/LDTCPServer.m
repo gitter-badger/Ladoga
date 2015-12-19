@@ -99,6 +99,7 @@ void acceptConnectionCallback(CFSocketRef s,
             [self.tcpServerDelegate acceptConnection:nativeSocketHandle];
         }
     }
+    close(nativeSocketHandle);
 }
 
 #pragma mark - Public methods
