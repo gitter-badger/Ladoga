@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Ladoga by aperechnev</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Ladoga</h1>
+        <h2>Lightweight HTTP server framework written in Objective-C.</h2>
+        <a href="https://github.com/aperechnev/Ladoga" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="https://travis-ci.org/aperechnev/Ladoga"><img src="https://api.travis-ci.org/aperechnev/Ladoga.svg?branch=develop" alt="Travis CI"></a> <a href="http://cocoapods.org/pods/Ladoga"><img src="https://cocoapod-badges.herokuapp.com/v/Ladoga/badge.png" alt="CocoaPods"></a> <img src="https://cocoapod-badges.herokuapp.com/l/Ladoga/badge.png" alt="CocoaPods"></p>
+
+<p><strong>Ladoga</strong> is an lightweight and easy-to-use HTTP framework that makes it possible to write web-applications in Objective-C. It provides simple API letting you to concentrate on you bussiness logic, instead of spending your time on low-level details.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>The easiest way to start development using <strong>Ladoga</strong> framework is to install it via CocoaPods. Just add it to your <code>Podfile</code>:</p>
+
+<div class="highlight highlight-source-ruby"><pre>source <span class="pl-s"><span class="pl-pds">'</span>https://github.com/CocoaPods/Specs.git<span class="pl-pds">'</span></span>
+platform <span class="pl-c1">:ios</span>, <span class="pl-s"><span class="pl-pds">'</span>8.0<span class="pl-pds">'</span></span>
+
+pod <span class="pl-s"><span class="pl-pds">'</span>Ladoga<span class="pl-pds">'</span></span></pre></div>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h2>
+
+<h3>
+<a id="basic-example" class="anchor" href="#basic-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic example</h3>
+
+<p>The basic example is easy enough, so you can start making you web applications right now.</p>
+
+<h6>
+<a id="myserverexampleh" class="anchor" href="#myserverexampleh" aria-hidden="true"><span class="octicon octicon-link"></span></a>MyServerExample.h</h6>
+
+<div class="highlight highlight-source-objc"><pre>#<span class="pl-k">import</span> <span class="pl-s"><span class="pl-pds">&lt;</span>Foundation/Foundation.h<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">import</span> <span class="pl-s"><span class="pl-pds">&lt;</span>Ladoga/Ladoga.h<span class="pl-pds">&gt;</span></span>
+
+<span class="pl-k">@interface</span> <span class="pl-en">MyServerExample</span> : <span class="pl-e">NSObject</span>
+- (<span class="pl-k">void</span>)<span class="pl-en">start</span>;
+<span class="pl-k">@end</span></pre></div>
+
+<h6>
+<a id="myserverexamplem" class="anchor" href="#myserverexamplem" aria-hidden="true"><span class="octicon octicon-link"></span></a>MyServerExample.m</h6>
+
+<div class="highlight highlight-source-objc"><pre>#<span class="pl-k">import</span> <span class="pl-s"><span class="pl-pds">"</span>MyServerExample.h<span class="pl-pds">"</span></span>
+
+<span class="pl-k">@implementation</span> <span class="pl-en">MyServerExample</span>
+
+- (<span class="pl-k">void</span>)<span class="pl-en">start</span> {
+    LDHTTPServer *server = [[LDHTTPServer <span class="pl-c1">alloc</span>] <span class="pl-c1">initWithAddress:</span><span class="pl-s"><span class="pl-pds">@"</span>127.0.0.1<span class="pl-pds">"</span></span>
+                                                         <span class="pl-c1">andPort:</span><span class="pl-c1">8081</span>];
+    LDHTTPRequestHandler *mainPageHandler = [[LDHTTPRequestHandler <span class="pl-c1">alloc</span>] <span class="pl-c1">initWithHandler:</span><span class="pl-v">self</span>
+                                                                                 <span class="pl-c1">selector:</span><span class="pl-k">@selector</span>(<span class="pl-c1">mainPage:</span>)
+                                                                                  <span class="pl-c1">methods:</span>@[ @(LDHTTPMethodGET) ]];
+    [server <span class="pl-c1">addRequestHandler:</span>mainPageHandler <span class="pl-c1">forPath:</span><span class="pl-s"><span class="pl-pds">@"</span>/index.html<span class="pl-pds">"</span></span>];
+    [server <span class="pl-c1">startWithRunLoop:</span><span class="pl-c1">CFRunLoopGetMain</span>()];
+    <span class="pl-c1">CFRunLoopRun</span>();
+}
+
+- (LDHTTPResponse *)<span class="pl-en">mainPage</span><span class="pl-en">:</span>(LDHTTPRequest *)<span class="pl-smi">request</span> {
+    LDHTTPResponse *response = [[LDHTTPResponse <span class="pl-c1">alloc</span>] <span class="pl-c1">init</span>];
+    [response <span class="pl-c1">addValue:</span><span class="pl-s"><span class="pl-pds">@"</span>text/html;charset=utf-8<span class="pl-pds">"</span></span> <span class="pl-c1">forHTTPHeader:</span><span class="pl-s"><span class="pl-pds">@"</span>Content-Type<span class="pl-pds">"</span></span>];
+    response.<span class="pl-smi">body</span> = <span class="pl-s"><span class="pl-pds">@"</span>&lt;html&gt;&lt;head&gt;&lt;title&gt;My Example&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Hello, world!&lt;/body&gt;&lt;/html&gt;<span class="pl-pds">"</span></span>;
+    <span class="pl-k">return</span> response;
+}
+
+<span class="pl-k">@end</span></pre></div>
+
+<h3>
+<a id="templates" class="anchor" href="#templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Templates</h3>
+
+<p><strong>Ladoga</strong> also provides template system via <code>LDHTMLTemplate</code> class. You can specify your templates with some variables, and then render it with actual values.</p>
+
+<p>Let's say that we have the following template with <code>PageTitle</code> and <code>Username</code> variables:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">html</span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;&lt;<span class="pl-ent">title</span>&gt;{{ PageTitle }}&lt;/<span class="pl-ent">title</span>&gt;&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;Hello, {{ Username }}!&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p>So, to render this template, we have to use <code>renderTemplateAtPath:withParameters:</code> class method:</p>
+
+<div class="highlight highlight-source-objc"><pre><span class="pl-c1">NSDictionary</span> *params = @{ <span class="pl-s"><span class="pl-pds">@"</span>PageTitle<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">@"</span>Test Page<span class="pl-pds">"</span></span>,
+                          <span class="pl-s"><span class="pl-pds">@"</span>Username<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">@"</span>John<span class="pl-pds">"</span></span> };
+
+<span class="pl-c1">NSString</span> *templatePath = [[[<span class="pl-c1">NSBundle</span> <span class="pl-c1">bundleForClass:</span>[<span class="pl-v">self</span> <span class="pl-c1">class</span>]] <span class="pl-c1">resourcePath</span>] <span class="pl-c1">stringByAppendingPathComponent:</span><span class="pl-s"><span class="pl-pds">@"</span>index.html<span class="pl-pds">"</span></span>];
+
+<span class="pl-c1">NSString</span> *resultHTML = [LDHTMLTemplate <span class="pl-c1">renderTemplateAtPath:</span>templatePath
+                                             <span class="pl-c1">withParameters:</span>params];</pre></div>
+
+<p>And as a result, we have a string that contains the code of rendered HTML page:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">html</span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;&lt;<span class="pl-ent">title</span>&gt;Test Page&lt;/<span class="pl-ent">title</span>&gt;&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;Hello, John!&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h2>
+<a id="how-to-contribute" class="anchor" href="#how-to-contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>How To Contribute</h2>
+
+<p>If you want to help to develop <strong>Ladoga</strong>, your pull requests are welcome. Please follow the <code>git-flow</code> notation and make sure that all tests are passed before making a pull-request. Btw, every line of code should be covered by tests. All warnings should be fixed as well.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/aperechnev/Ladoga/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/aperechnev/Ladoga/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/aperechnev/Ladoga"></a> is maintained by <a href="https://github.com/aperechnev">aperechnev</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
