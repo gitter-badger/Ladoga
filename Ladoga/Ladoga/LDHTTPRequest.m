@@ -31,7 +31,7 @@
 }
 
 - (NSDictionary *)argumentsForHTTPMessage:(CFHTTPMessageRef)message {
-    if (_method == LDHTTPMethodGET) {
+    if (_method == LDHTTPMethodGET || _method == LDHTTPMethodHEAD) {
         return [self parseArgumentsFromURL:self.uri.relativeString];
     }
     return @{};
@@ -51,30 +51,9 @@
     if ([method isEqualToString:@"GET"]) {
         return LDHTTPMethodGET;
     }
-//    if ([method isEqualToString:@"POST"]) {
-//        return LDHTTPMethodPOST;
-//    }
-//    if ([methodString isEqualToString:@"PUT"]) {
-//        return LDHTTPMethodPUT;
-//    }
-//    if ([methodString isEqualToString:@"DELETE"]) {
-//        return LDHTTPMethodDELETE;
-//    }
     if ([methodString isEqualToString:@"HEAD"]) {
         return LDHTTPMethodHEAD;
     }
-//    if ([methodString isEqualToString:@"PATCH"]) {
-//        return LDHTTPMethodPATCH;
-//    }
-//    if ([methodString isEqualToString:@"OPTIONS"]) {
-//        return LDHTTPMethodOPTIONS;
-//    }
-//    if ([methodString isEqualToString:@"TRACE"]) {
-//        return LDHTTPMethodTRACE;
-//    }
-//    if ([methodString isEqualToString:@"CONNECT"]) {
-//        return LDHTTPMethodCONNECT;
-//    }
     
     return LDHTTPMethodUnknown;
 }
