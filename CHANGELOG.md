@@ -1,6 +1,6 @@
 # Change log
 
-## 0.2.0
+## 0.2.1
 
 * New mechanism of subscribing to requests.
 * GET and HEAD HTTP method support.
