@@ -21,6 +21,7 @@
                               @"Name": @"Some Username" };
     
     NSString *templatePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"index.html"];
+    XCTAssertNotNil(templatePath);
     
     NSString *resultHTML = [LDHTMLTemplate renderTemplateAtPath:templatePath
                                                  withParameters:params];
