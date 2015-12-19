@@ -1,4 +1,4 @@
-[![Travis CI](https://api.travis-ci.org/aperechnev/Ladoga.svg?branch=develop)](https://travis-ci.org/aperechnev/Ladoga) [![CocoaPods](https://img.shields.io/cocoapods/v/Ladoga.svg)](http://cocoapods.org/pods/Ladoga) ![CocoaPods](https://img.shields.io/cocoapods/p/Ladoga.svg) [![CocoaDocs](https://img.shields.io/cocoapods/metrics/doc-percent/Ladoga.svg)](http://cocoapods.org/pods/Ladoga)
+[![Travis CI](https://api.travis-ci.org/aperechnev/Ladoga.svg?branch=develop)](https://travis-ci.org/aperechnev/Ladoga) [![CocoaPods](https://img.shields.io/cocoapods/v/Ladoga.svg)](http://cocoapods.org/pods/Ladoga) ![CocoaPods](https://img.shields.io/cocoapods/p/Ladoga.svg) [![CocoaDocs](https://img.shields.io/cocoapods/metrics/doc-percent/Ladoga.svg)](http://cocoadocs.org/docsets/Ladoga/)
 
 **Ladoga** is a lightweight and easy-to-use HTTP framework that makes it possible to write web-applications in Objective-C. It provides simple API letting you to concentrate on you bussiness logic, instead of spending your time on low-level details.
 
