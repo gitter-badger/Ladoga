@@ -126,15 +126,17 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSURL *requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/index.html", TEST_HOST, @(TEST_PORT)]];
             
-            NSError *error;
-            NSString *responseString = [NSString stringWithContentsOfURL:requestURL
-                                                                encoding:NSUTF8StringEncoding
-                                                                   error:&error];
-            XCTAssertNil(error);
-            XCTAssertNotNil(responseString);
-            XCTAssertEqualObjects(responseString, @"Internal server error");
-            
-            [requestExpectation fulfill];
+            [[[NSURLSession sharedSession] dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                
+                XCTAssertNil(error);
+                XCTAssertNotNil(response);
+                XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], 500);
+                
+                NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                XCTAssertTrue([responseString rangeOfString:@"Internal server error"].location != NSNotFound);
+                
+                [requestExpectation fulfill];
+            }] resume];
         });
     });
     
