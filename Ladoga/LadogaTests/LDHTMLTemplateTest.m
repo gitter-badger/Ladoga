@@ -27,9 +27,15 @@
                                                  withParameters:params];
     
     XCTAssertNotNil(resultHTML);
-    XCTAssertTrue([resultHTML containsString:@"<title>Test Page</title>"]);
-    XCTAssertTrue([resultHTML containsString:@"<h1>Test Page</h1>"]);
-    XCTAssertTrue([resultHTML containsString:@"<p>Hello, Some Username</p>"]);
+    XCTAssertFalse([resultHTML rangeOfString:@"<title>Test Page</title>"].location == NSNotFound);
+    XCTAssertFalse([resultHTML rangeOfString:@"<h1>Test Page</h1>"].location == NSNotFound);
+    XCTAssertFalse([resultHTML rangeOfString:@"<p>Hello, Some Username</p>"].location == NSNotFound);
+}
+
+- (void)testNoTemplate {
+    NSString *resultHTML = [LDHTMLTemplate renderTemplateAtPath:@"no.html"
+                                                 withParameters:@{}];
+    XCTAssertNil(resultHTML);
 }
 
 @end

@@ -133,7 +133,7 @@ typedef LDHTTPResponse* (^ConnectionHandler) (LDHTTPRequest*);
                 XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], 500);
                 
                 NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                XCTAssertTrue([responseString containsString:@"Internal server error"]);
+                XCTAssertTrue([responseString rangeOfString:@"Internal server error"].location != NSNotFound);
                 
                 [requestExpectation fulfill];
             }] resume];
