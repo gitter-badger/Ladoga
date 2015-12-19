@@ -31,7 +31,9 @@
 }
 
 - (NSDictionary *)argumentsForHTTPMessage:(CFHTTPMessageRef)message {
-    
+    if (_method == LDHTTPMethodGET) {
+        return [self parseArgumentsFromURL:self.uri.relativeString];
+    }
     return @{};
 }
 
@@ -75,6 +77,35 @@
 //    }
     
     return LDHTTPMethodUnknown;
+}
+
+#pragma mark - Arguments parsing
+
+- (NSDictionary *)parseArgumentsFromURL:(NSString *)uri {
+    if ([uri rangeOfString:@"?"].location == NSNotFound) {
+        return @{};
+    }
+    
+    NSMutableDictionary *arguments = [[NSMutableDictionary alloc] init];
+    
+    NSString *argumentsString = [[uri componentsSeparatedByString:@"?"] lastObject];
+    if (argumentsString.length == 0) {
+        return @{};
+    }
+    
+    NSArray *argumentStringList = [argumentsString componentsSeparatedByString:@"&"];
+    for (NSString *argumentItem in argumentStringList) {
+        NSArray *argumentComponents = [argumentItem componentsSeparatedByString:@"="];
+        
+        NSString *paramName = argumentComponents[0];
+        NSString *paramValue = argumentComponents.count > 1 ? argumentComponents[1] : @"";
+        
+        [arguments addEntriesFromDictionary:@{ paramName: paramValue }];
+    }
+    
+    NSLog(@"%@", arguments);
+    
+    return [arguments copy];
 }
 
 @end

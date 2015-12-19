@@ -49,15 +49,8 @@
     const CFStringRef requestHTTPVersion = (__bridge CFStringRef)@"1.0";
     
     NSString * const UNKNOWN    = @"UNKNOWN";
-    NSString * const OPTIONS    = @"OPTIONS";
     NSString * const GET        = @"GET";
     NSString * const HEAD       = @"HEAD";
-    NSString * const POST       = @"POST";
-    NSString * const PUT        = @"PUT";
-    NSString * const PATCH      = @"PATCH";
-    NSString * const DELETE     = @"DELETE";
-    NSString * const TRACE      = @"TRACE";
-    NSString * const CONNECT    = @"CONNECT";
     
     CFHTTPMessageRef httpMessage;
     LDHTTPRequest *request;
@@ -68,13 +61,6 @@
                                              requestHTTPVersion);
     request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
     XCTAssertEqual(request.method, LDHTTPMethodUnknown);
-    
-    httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                             (__bridge CFStringRef)OPTIONS,
-                                             requestURL,
-                                             requestHTTPVersion);
-    request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
-//    XCTAssertEqual(request.method, LDHTTPMethodOPTIONS);
     
     httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
                                              (__bridge CFStringRef)GET,
@@ -89,48 +75,39 @@
                                              requestHTTPVersion);
     request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
     XCTAssertEqual(request.method, LDHTTPMethodHEAD);
+}
+
+- (void)testGETArgumentsParsing {
+    const CFStringRef requestHTTPVersion = (__bridge CFStringRef)@"1.0";
+    const CFStringRef requestHTTPMethod = (__bridge CFStringRef)@"GET";
     
-    httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                             (__bridge CFStringRef)POST,
-                                             requestURL,
-                                             requestHTTPVersion);
-    request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
-//    XCTAssertEqual(request.method, LDHTTPMethodPOST);
+    NSArray *testURLStrings = @[
+  @[ @"http://127.0.0.1", @{} ],
+  @[ @"http://127.0.0.1/", @{} ],
+  @[ @"http://127.0.0.1/index.html", @{} ],
+  @[ @"http://127.0.0.1/?", @{} ],
+  @[ @"http://127.0.0.1/?some", @{ @"some": @"" } ],
+  @[ @"http://127.0.0.1/?some=", @{ @"some": @"" } ],
+  @[ @"http://127.0.0.1/?some=1", @{ @"some": @"1" } ],
+  @[ @"http://127.0.0.1/index.html?some=1", @{ @"some": @"1" } ],
+  @[ @"http://127.0.0.1/index.html?some=1&another=test", @{ @"some": @"1", @"another": @"test" } ]
+  ];
     
-    httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                             (__bridge CFStringRef)PUT,
-                                             requestURL,
-                                             requestHTTPVersion);
-    request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
-//    XCTAssertEqual(request.method, LDHTTPMethodPUT);
-    
-    httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                             (__bridge CFStringRef)PATCH,
-                                             requestURL,
-                                             requestHTTPVersion);
-    request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
-//    XCTAssertEqual(request.method, LDHTTPMethodPATCH);
-    
-    httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                             (__bridge CFStringRef)DELETE,
-                                             requestURL,
-                                             requestHTTPVersion);
-    request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
-//    XCTAssertEqual(request.method, LDHTTPMethodDELETE);
-    
-    httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                             (__bridge CFStringRef)TRACE,
-                                             requestURL,
-                                             requestHTTPVersion);
-    request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
-//    XCTAssertEqual(request.method, LDHTTPMethodTRACE);
-    
-    httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                             (__bridge CFStringRef)CONNECT,
-                                             requestURL,
-                                             requestHTTPVersion);
-    request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
-//    XCTAssertEqual(request.method, LDHTTPMethodCONNECT);
+    for (NSArray *testParameters in testURLStrings) {
+        CFURLRef url = (__bridge CFURLRef)[NSURL URLWithString:testParameters[0]];
+        
+        CFHTTPMessageRef httpMessage = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
+                                                                  requestHTTPMethod,
+                                                                  url,
+                                                                  requestHTTPVersion);
+        
+        LDHTTPRequest *request = [[LDHTTPRequest alloc] initWithMessage:httpMessage];
+        
+        NSDictionary *passedParams = testParameters[1];
+        for (NSString *parameterName in passedParams) {
+            XCTAssertEqualObjects([request.arguments objectForKey:parameterName], [passedParams objectForKey:parameterName]);
+        }
+    }
 }
 
 @end

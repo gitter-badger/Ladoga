@@ -49,6 +49,10 @@ typedef enum : NSInteger {
 @property (nonatomic, strong, readonly) NSDictionary *arguments;
 
 /**
+ */
+- (NSDictionary *)parseArgumentsFromURL:(NSString *)uri;
+
+/**
  @brief Request headers.
  */
 @property (nonatomic, strong, readonly) NSDictionary *HTTPHeaders;

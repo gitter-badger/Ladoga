@@ -17,7 +17,7 @@
     
     LDHTTPRequestHandler *mainPageHandler = [[LDHTTPRequestHandler alloc] initWithHandler:self
                                                                                  selector:@selector(mainPage:)
-                                                                                  methods:@[ @(LDHTTPMethodHEAD) ]];
+                                                                                  methods:@[ @(LDHTTPMethodGET) ]];
     [server addRequestHandler:mainPageHandler forPath:@"/index.html"];
     [server startWithRunLoop:CFRunLoopGetMain()];
     CFRunLoopRun();
