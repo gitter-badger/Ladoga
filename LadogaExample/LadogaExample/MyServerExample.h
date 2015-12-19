@@ -10,7 +10,7 @@
 #import "../../Ladoga/Ladoga/Ladoga.h"
 
 
-@interface MyServerExample : NSObject <LDHTTPServerDelegate>
+@interface MyServerExample : NSObject
 
 - (void)start;
 @end
