@@ -37,23 +37,23 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
 
 - (void)acceptConnection:(CFSocketNativeHandle)socketNativeHandle {
     LDHTTPRequest *request = [self readRequest:socketNativeHandle];
+    
     if (request.method == LDHTTPMethodUnknown) {
-//        An origin server SHOULD return the status code 405 (Method Not Allowed) if the method is known by the origin server but not allowed for the requested resource, and 501 (Not Implemented) if the method is unrecognized or not implemented by the origin server.
-        [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
-                  toSocket:socketNativeHandle];
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_NOT_IMPLEMENTED];
+        [self sendResponse:response toSocket:socketNativeHandle];
         return;
     }
     
     LDHTTPRequestHandler *requestHandler = [self.requestHandlers objectForKey:request.uri.relativePath];
     if (requestHandler == nil) {
-        [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
-                  toSocket:socketNativeHandle];
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_NOT_FOUND];
+        [self sendResponse:response toSocket:socketNativeHandle];
         return;
     }
     
     if ([requestHandler.methods containsObject:@(request.method)] == NO) {
-        [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
-                  toSocket:socketNativeHandle];
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_METHOD_NOT_ALLOWED];
+        [self sendResponse:response toSocket:socketNativeHandle];
         return;
     }
     
@@ -64,8 +64,8 @@ static const NSUInteger LD_MAX_REQUEST_BYTES = 2048;
         [self sendResponse:response toSocket:socketNativeHandle];
     }
     else {
-        [self sendResponse:[LDHTTPResponse internalServerErrorResponse]
-                  toSocket:socketNativeHandle];
+        LDHTTPResponse *response = [[LDHTTPResponse alloc] initWithCode:LD_HTTP_RESPONSE_CODE_INTERNAL_SERVER_ERROR];
+        [self sendResponse:response toSocket:socketNativeHandle];
     }
 }
 

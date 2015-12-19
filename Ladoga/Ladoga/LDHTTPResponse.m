@@ -27,19 +27,21 @@
     return self;
 }
 
-+ (instancetype)internalServerErrorResponse {
-    NSString *errorTemplatePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"error.html"];
-    
-    LDHTTPResponse *response = [[LDHTTPResponse alloc] init];
-    response.code = 500;
-    
-    NSDictionary *params = @{ @"ErrorCode": @"500",
-                              @"ErrorTitle": @"Internal server error" };
-    
-    response.body = [LDHTMLTemplate renderTemplateAtPath:errorTemplatePath
-                                          withParameters:params];
-    
-    return response;
+- (instancetype)initWithCode:(NSInteger)code {
+    self = [super init];
+    if (self) {
+        self.HTTPHeaders = [[NSMutableDictionary alloc] init];
+        self.code = code;
+        
+        NSDictionary *params = @{ @"StatusCode": [NSString stringWithFormat:@"%@", @(code)],
+                                  @"Title": @"Response code" };
+        
+        NSString *templatePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"response.html"];
+        
+        self.body = [LDHTMLTemplate renderTemplateAtPath:templatePath
+                                          withParameters:params];;
+    }
+    return self;
 }
 
 #pragma mark - Setters & getters
@@ -48,7 +50,7 @@
     CFHTTPMessageRef httpMessage = CFHTTPMessageCreateResponse(kCFAllocatorDefault,
                                                                self.code,
                                                                NULL,
-                                                               kCFHTTPVersion1_0);
+                                                               kCFHTTPVersion1_1);
     
     [self.HTTPHeaders enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         CFStringRef header = (__bridge CFStringRef)key;

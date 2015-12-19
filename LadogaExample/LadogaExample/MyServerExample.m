@@ -13,11 +13,11 @@
 
 - (void)start {
     LDHTTPServer *server = [[LDHTTPServer alloc] initWithAddress:@"127.0.0.1"
-                                                         andPort:8080];
+                                                         andPort:8081];
     
     LDHTTPRequestHandler *mainPageHandler = [[LDHTTPRequestHandler alloc] initWithHandler:self
                                                                                  selector:@selector(mainPage:)
-                                                                                  methods:@[ @(LDHTTPMethodGET) ]];
+                                                                                  methods:@[ @(LDHTTPMethodHEAD) ]];
     [server addRequestHandler:mainPageHandler forPath:@"/index.html"];
     [server startWithRunLoop:CFRunLoopGetMain()];
     CFRunLoopRun();

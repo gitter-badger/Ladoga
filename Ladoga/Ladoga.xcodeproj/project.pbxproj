@@ -25,7 +25,7 @@
 		32920DB81C24BC9200AE7EC4 /* LDHTMLTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DB61C24BC9200AE7EC4 /* LDHTMLTemplate.m */; };
 		32920DBB1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DBA1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m */; };
 		32920DBD1C24C9DD00AE7EC4 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DBC1C24C9DD00AE7EC4 /* index.html */; };
-		32920DC31C24D53B00AE7EC4 /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DC21C24D53B00AE7EC4 /* error.html */; };
+		32920DC31C24D53B00AE7EC4 /* response.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DC21C24D53B00AE7EC4 /* response.html */; };
 		32920DC61C256BFB00AE7EC4 /* LDHTTPRequestHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32920DC71C256BFB00AE7EC4 /* LDHTTPRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */; };
 /* End PBXBuildFile section */
@@ -62,7 +62,7 @@
 		32920DB61C24BC9200AE7EC4 /* LDHTMLTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTMLTemplate.m; sourceTree = "<group>"; };
 		32920DBA1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTMLTemplateTest.m; sourceTree = "<group>"; };
 		32920DBC1C24C9DD00AE7EC4 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		32920DC21C24D53B00AE7EC4 /* error.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
+		32920DC21C24D53B00AE7EC4 /* response.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = response.html; sourceTree = "<group>"; };
 		32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPRequestHandler.h; sourceTree = "<group>"; };
 		32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequestHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,7 +142,7 @@
 			children = (
 				32920DB51C24BC9200AE7EC4 /* LDHTMLTemplate.h */,
 				32920DB61C24BC9200AE7EC4 /* LDHTMLTemplate.m */,
-				32920DC21C24D53B00AE7EC4 /* error.html */,
+				32920DC21C24D53B00AE7EC4 /* response.html */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32920DC31C24D53B00AE7EC4 /* error.html in Resources */,
+				32920DC31C24D53B00AE7EC4 /* response.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
