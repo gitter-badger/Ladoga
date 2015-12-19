@@ -92,4 +92,6 @@ And as a result, we have a string that contains the code of rendered HTML page:
 
 ## How To Contribute
 
-If you want to help to develop **Ladoga**, your pull requests are welcome. Please follow the `git-flow` notation and make sure that all tests are passed before making a pull-request. Btw, every line of code should be covered by tests. All warnings should be fixed as well.
+If you want to help to develop **Ladoga**, your pull requests are welcome. Please follow the `git-flow` notation and make sure that all tests are passed before making a pull-request.
+
+Source code of **Ladoga** is fully covered by unit tests. That means that you can check your changes for regressions immadiately. Please cover each new line of code by test.
