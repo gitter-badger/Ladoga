@@ -28,6 +28,8 @@
 		32920DC31C24D53B00AE7EC4 /* response.html in Resources */ = {isa = PBXBuildFile; fileRef = 32920DC21C24D53B00AE7EC4 /* response.html */; };
 		32920DC61C256BFB00AE7EC4 /* LDHTTPRequestHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32920DC71C256BFB00AE7EC4 /* LDHTTPRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */; };
+		32920DCA1C2588EA00AE7EC4 /* LDHTTPRequestHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DC91C2588EA00AE7EC4 /* LDHTTPRequestHandlerTest.m */; };
+		32920DCE1C258AC000AE7EC4 /* LDTestServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 32920DCD1C258AC000AE7EC4 /* LDTestServer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,9 @@
 		32920DC21C24D53B00AE7EC4 /* response.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = response.html; sourceTree = "<group>"; };
 		32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPRequestHandler.h; sourceTree = "<group>"; };
 		32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequestHandler.m; sourceTree = "<group>"; };
+		32920DC91C2588EA00AE7EC4 /* LDHTTPRequestHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequestHandlerTest.m; sourceTree = "<group>"; };
+		32920DCC1C258AC000AE7EC4 /* LDTestServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDTestServer.h; sourceTree = "<group>"; };
+		32920DCD1C258AC000AE7EC4 /* LDTestServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDTestServer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,11 +132,13 @@
 		3205C0CB1C1D4EB500C1F5B0 /* LadogaTests */ = {
 			isa = PBXGroup;
 			children = (
+				32920DCB1C258AAC00AE7EC4 /* Classes */,
 				32920DB91C24BE8500AE7EC4 /* Templates */,
 				3205C0CE1C1D4EB500C1F5B0 /* Info.plist */,
 				3205C0DE1C1D581F00C1F5B0 /* LDTcpServerTest.m */,
 				3235A2E61C1DE54800D522EE /* LDHTTPResponseTest.m */,
 				3235A2E81C1E6F8900D522EE /* LDHTTPRequestTest.m */,
+				32920DC91C2588EA00AE7EC4 /* LDHTTPRequestHandlerTest.m */,
 				3235A2EA1C1E8C1C00D522EE /* LDHTTPServerTest.m */,
 			);
 			path = LadogaTests;
@@ -154,6 +161,15 @@
 				32920DBC1C24C9DD00AE7EC4 /* index.html */,
 			);
 			name = Templates;
+			sourceTree = "<group>";
+		};
+		32920DCB1C258AAC00AE7EC4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				32920DCC1C258AC000AE7EC4 /* LDTestServer.h */,
+				32920DCD1C258AC000AE7EC4 /* LDTestServer.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,8 +301,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32920DCE1C258AC000AE7EC4 /* LDTestServer.m in Sources */,
 				3235A2EB1C1E8C1C00D522EE /* LDHTTPServerTest.m in Sources */,
 				3235A2E71C1DE54800D522EE /* LDHTTPResponseTest.m in Sources */,
+				32920DCA1C2588EA00AE7EC4 /* LDHTTPRequestHandlerTest.m in Sources */,
 				32920DBB1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m in Sources */,
 				3235A2E91C1E6F8900D522EE /* LDHTTPRequestTest.m in Sources */,
 				3205C0DF1C1D581F00C1F5B0 /* LDTcpServerTest.m in Sources */,

@@ -25,8 +25,14 @@
         _method = [self httpMethodFromString:(__bridge_transfer NSString *)CFHTTPMessageCopyRequestMethod(httpMessage)];
         _httpVersion = (__bridge_transfer NSString *)(CFHTTPMessageCopyVersion(httpMessage));
         _HTTPHeaders = (__bridge_transfer NSDictionary *)CFHTTPMessageCopyAllHeaderFields(httpMessage);
+        _arguments = [self argumentsForHTTPMessage:httpMessage];
     }
     return self;
+}
+
+- (NSDictionary *)argumentsForHTTPMessage:(CFHTTPMessageRef)message {
+    
+    return @{};
 }
 
 #pragma mark - Public methods

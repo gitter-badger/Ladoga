@@ -15,11 +15,11 @@
 typedef void(^ConnectionHandler)();
 
 
-@interface TestServer : NSObject <LDTCPServerDelegate>
+@interface TestTCPServer : NSObject <LDTCPServerDelegate>
 @property (nonatomic, strong, readwrite) ConnectionHandler handler;
 @end
 
-@implementation TestServer
+@implementation TestTCPServer
 - (void)acceptConnection:(CFSocketNativeHandle)socketNativeHandle {
     if (self.handler) {
         self.handler();
@@ -83,7 +83,7 @@ typedef void(^ConnectionHandler)();
 - (void)testConnectionDelegate {
     XCTestExpectation *connectionExpectation = [self expectationWithDescription:@"connection accepted"];
     
-    TestServer *testServer = [[TestServer alloc] init];
+    TestTCPServer *testServer = [[TestTCPServer alloc] init];
     testServer.handler = ^{
         [connectionExpectation fulfill];
     };

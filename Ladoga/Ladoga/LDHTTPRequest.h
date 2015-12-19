@@ -44,6 +44,11 @@ typedef enum : NSInteger {
 @property (nonatomic, strong, readonly) NSString *httpVersion;
 
 /**
+ @brief Contains arguments, if passed with request.
+ */
+@property (nonatomic, strong, readonly) NSDictionary *arguments;
+
+/**
  @brief Request headers.
  */
 @property (nonatomic, strong, readonly) NSDictionary *HTTPHeaders;
