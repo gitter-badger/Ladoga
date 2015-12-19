@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author       = { "Alexander Perechnev" => "herfleisch@me.com" }
   s.source       = { :git => "https://github.com/aperechnev/Ladoga.git", :tag => "0.1.2" }
 
-  s.platform     = :osx
+  s.platform     = :osx, "10.11"
   s.source_files = 'Ladoga/Ladoga/*.{h,m}'
   s.requires_arc = true
 end
