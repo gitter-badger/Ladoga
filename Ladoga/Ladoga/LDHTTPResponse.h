@@ -60,10 +60,6 @@ static const NSInteger LD_HTTP_RESPONSE_CODE_HTTP_VERSION_NOT_SUPPORTED = 505;
 @interface LDHTTPResponse : NSObject
 
 /**
- */
-- (instancetype)initWithCode:(NSInteger)code;
-
-/**
  @brief CF representation of response.
  */
 @property (nonatomic, assign, readonly) CFHTTPMessageRef httpMessage;
@@ -79,9 +75,21 @@ static const NSInteger LD_HTTP_RESPONSE_CODE_HTTP_VERSION_NOT_SUPPORTED = 505;
 @property (nonatomic, strong, readwrite) NSString *body;
 
 /**
+ @brief Initialized object with specified HTTP response code.
+ 
+ @discussion Keep it in mind that this initializer also initializes body with predefined
+    template.
+ 
+ @param code HTTP response status code.
+ 
+ @return Returns an initialized object.
+ */
+- (instancetype)initWithCode:(NSInteger)code;
+
+/**
  @brief Value for HTTP header.
  
- @param Header name.
+ @param header Header name.
  
  @return Return header value or nil if header doesn't exist..
  */
@@ -92,15 +100,15 @@ static const NSInteger LD_HTTP_RESPONSE_CODE_HTTP_VERSION_NOT_SUPPORTED = 505;
  
  @discuss Adds new header or set new value if header already exists.
  
- @param Header value.
- @param Header name.
+ @param value Header value.
+ @param header Header name.
  */
 - (void)addValue:(NSString *)value forHTTPHeader:(NSString *)header;
 
 /**
  @brief Deletes header.
  
- @param Header name.
+ @param header Header name.
  */
 - (void)deleteHTTPHeader:(NSString *)header;
 

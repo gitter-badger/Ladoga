@@ -14,14 +14,18 @@
 
 
 /**
- @brief This class implements HTTP server.
- 
- @discussion Use this class to build an HTTP server.
+ This class implements HTTP server.
  */
 @interface LDHTTPServer : LDTCPServer <LDTCPServerDelegate>
 
-
 /**
+ @brief Sets an request handler for requests at specified path
+ 
+ @discussion When server accepts HTTP request, it looks for request handlers who subscribed
+    to requested path and passes request to it.
+ 
+ @param requestHandler Request handler, that handles HTTP requests.
+ @param path A path where handler expects to recieve requests.
  */
 - (void)addRequestHandler:(LDHTTPRequestHandler *)requestHandler forPath:(NSString *)path;
 

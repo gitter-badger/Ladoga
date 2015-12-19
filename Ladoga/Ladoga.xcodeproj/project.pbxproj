@@ -65,7 +65,7 @@
 		32920DBA1C24BEA100AE7EC4 /* LDHTMLTemplateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTMLTemplateTest.m; sourceTree = "<group>"; };
 		32920DBC1C24C9DD00AE7EC4 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		32920DC21C24D53B00AE7EC4 /* response.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = response.html; sourceTree = "<group>"; };
-		32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPRequestHandler.h; sourceTree = "<group>"; };
+		32920DC41C256BFB00AE7EC4 /* LDHTTPRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDHTTPRequestHandler.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		32920DC51C256BFB00AE7EC4 /* LDHTTPRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequestHandler.m; sourceTree = "<group>"; };
 		32920DC91C2588EA00AE7EC4 /* LDHTTPRequestHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDHTTPRequestHandlerTest.m; sourceTree = "<group>"; };
 		32920DCC1C258AC000AE7EC4 /* LDTestServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDTestServer.h; sourceTree = "<group>"; };
@@ -410,6 +410,7 @@
 		3205C0D21C1D4EB500C1F5B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -428,6 +429,7 @@
 		3205C0D31C1D4EB500C1F5B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
