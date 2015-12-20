@@ -19,10 +19,7 @@
 @interface LDHTTPServer : LDTCPServer <LDTCPServerDelegate>
 
 /**
- @brief Sets an request handler for requests at specified path
- 
- @discussion When server accepts HTTP request, it looks for request handlers who subscribed
-    to requested path and passes request to it.
+ Sets an request handler for HTTP requests at specified path. When server accepts new HTTP request, it looks for request handlers, who is subscribed to requested path, and passes request to it.
  
  @param requestHandler Request handler, that handles HTTP requests.
  @param path A path where handler expects to recieve requests.
