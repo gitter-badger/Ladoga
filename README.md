@@ -1,6 +1,6 @@
-[![Travis CI](https://api.travis-ci.org/aperechnev/Ladoga.svg?branch=develop)](https://travis-ci.org/aperechnev/Ladoga) [![CocoaPods](https://cocoapod-badges.herokuapp.com/v/Ladoga/badge.png)](http://cocoapods.org/pods/Ladoga) ![CocoaPods](https://cocoapod-badges.herokuapp.com/l/Ladoga/badge.png)
+[![Travis CI](https://api.travis-ci.org/aperechnev/Ladoga.svg?branch=develop)](https://travis-ci.org/aperechnev/Ladoga) [![CocoaPods](https://img.shields.io/cocoapods/v/Ladoga.svg)](http://cocoapods.org/pods/Ladoga) ![CocoaPods](https://img.shields.io/cocoapods/p/Ladoga.svg) [![CocoaDocs](https://img.shields.io/cocoapods/metrics/doc-percent/Ladoga.svg)](http://cocoadocs.org/docsets/Ladoga/)
 
-**Ladoga** is an lightweight and easy-to-use HTTP framework that makes it possible to write web-applications in Objective-C. It provides simple API letting you to concentrate on you bussiness logic, instead of spending your time on low-level details.
+**Ladoga** is a lightweight and easy-to-use HTTP framework that makes it possible to write web-applications in Objective-C. It provides simple API letting you to concentrate on you bussiness logic, instead of spending your time on low-level details.
 
 ## Installation
 
@@ -92,4 +92,6 @@ And as a result, we have a string that contains the code of rendered HTML page:
 
 ## How To Contribute
 
-If you want to help to develop **Ladoga**, your pull requests are welcome. Please follow the `git-flow` notation and make sure that all tests are passed before making a pull-request. Btw, every line of code should be covered by tests. All warnings should be fixed as well.
+If you want to help to develop **Ladoga**, your pull requests are welcome. Please follow the `git-flow` notation and make sure that all tests are passed before making a pull-request.
+
+Source code of **Ladoga** is fully covered by unit tests. That means that you can check your changes for regressions immadiately. Please cover each new line of code by test.
