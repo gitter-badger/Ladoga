@@ -1,5 +1,9 @@
 # Change log
 
+## 0.2.3
+
+* Documentation improvements.
+
 ## 0.2.1
 
 * New mechanism of subscribing to requests.
