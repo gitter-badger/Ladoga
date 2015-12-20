@@ -10,14 +10,12 @@
 
 
 /**
- @brief Class that implements template rendering.
+ Class that implements template rendering.
  */
 @interface LDHTMLTemplate : NSObject
 
 /**
- @brief Render template to an HTML page.
- 
- @discussion Call this method to render your template and get an HTML page.
+ Renders template to an HTML page. Call this method to render your template and get an HTML page.
  
  @param filepath Full path to template file.
  @param parameters Template parameters.
