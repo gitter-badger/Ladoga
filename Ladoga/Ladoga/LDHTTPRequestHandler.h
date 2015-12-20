@@ -10,28 +10,36 @@
 
 
 /**
- @brief Class that represents request handler for specified path.
+ Class that represents request handler for specified path.
  */
 @interface LDHTTPRequestHandler : NSObject
 
+///=====================
+/// @name Initialization
+///=====================
+
 /**
- @brief Pointer to object, that handle HTTP request.
+ Initializes object with specified values.
+ */
+- (instancetype)initWithHandler:(NSObject *)handler selector:(SEL)selector methods:(NSArray *)methods;
+
+///====================
+/// @name Configuration
+///====================
+
+/**
+ Pointer to object, that handle HTTP request.
  */
 @property (nonatomic, strong, readwrite) NSObject *handler;
 
 /**
- @brief Selector of the method, that will be invoked to process HTTP request.
+ Selector of the method, that will be invoked to process HTTP request.
  */
 @property (nonatomic, assign, readwrite) SEL selector;
 
 /**
- @brief List of allowed HTTP request methods.
+ List of allowed HTTP request methods.
  */
 @property (nonatomic, strong, readwrite) NSArray *methods;
-
-/**
- @brief Initializes object with specified values.
- */
-- (instancetype)initWithHandler:(NSObject *)handler selector:(SEL)selector methods:(NSArray *)methods;
 
 @end

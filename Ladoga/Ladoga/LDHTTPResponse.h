@@ -53,32 +53,16 @@ static const NSInteger LD_HTTP_RESPONSE_CODE_HTTP_VERSION_NOT_SUPPORTED = 505;
 
 
 /**
- @brief Class that represents HTTP response.
- 
- @discussion Use object of this class to return a response to client.
+ Class that represents HTTP response. Use object of this class to return a response to client.
  */
 @interface LDHTTPResponse : NSObject
 
-/**
- @brief CF representation of response.
- */
-@property (nonatomic, assign, readonly) CFHTTPMessageRef httpMessage;
+///=====================
+/// @name Initialization
+///=====================
 
 /**
- @brief Response code.
- */
-@property (nonatomic, assign, readwrite) NSUInteger code;
-
-/**
- @brief Response body.
- */
-@property (nonatomic, strong, readwrite) NSString *body;
-
-/**
- @brief Initialized object with specified HTTP response code.
- 
- @discussion Keep it in mind that this initializer also initializes body with predefined
-    template.
+ Initializes object with specified HTTP response code. Keep it in mind that this initializer also initializes body with predefined template.
  
  @param code HTTP response status code.
  
@@ -86,19 +70,35 @@ static const NSInteger LD_HTTP_RESPONSE_CODE_HTTP_VERSION_NOT_SUPPORTED = 505;
  */
 - (instancetype)initWithCode:(NSInteger)code;
 
+///====================
+/// @name Configuration
+///====================
+
 /**
- @brief Value for HTTP header.
+ Status code.
+ */
+@property (nonatomic, assign, readwrite) NSUInteger code;
+
+/**
+ Response body.
+ */
+@property (nonatomic, strong, readwrite) NSString *body;
+
+///===========================
+/// @name Working With Headers
+///===========================
+
+/**
+ Getting value for HTTP header.
  
  @param header Header name.
  
- @return Return header value or nil if header doesn't exist..
+ @return Return header value or nil if header does not exist.
  */
 - (NSString *)valueForHTTPHeader:(NSString *)header;
 
 /**
- @brief Adds new header to response.
- 
- @discuss Adds new header or set new value if header already exists.
+ Adds new header or set new value if header already exists.
  
  @param value Header value.
  @param header Header name.
@@ -106,10 +106,19 @@ static const NSInteger LD_HTTP_RESPONSE_CODE_HTTP_VERSION_NOT_SUPPORTED = 505;
 - (void)addValue:(NSString *)value forHTTPHeader:(NSString *)header;
 
 /**
- @brief Deletes header.
+ Deletes header.
  
  @param header Header name.
  */
 - (void)deleteHTTPHeader:(NSString *)header;
+
+///=============================================
+/// @name Getting Core Foundation Representation
+///=============================================
+
+/**
+ Core Foundation representation of response.
+ */
+@property (nonatomic, assign, readonly) CFHTTPMessageRef httpMessage;
 
 @end
