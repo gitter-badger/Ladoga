@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   
   s.description  = "Ladoga is an lightweight and easy-to-use HTTP framework that makes it possible to write web-applications in Objective-C."
 
-  s.homepage     = "https://github.com/aperechnev/Ladoga"
+  s.homepage     = "http://aperechnev.github.io/Ladoga/"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Alexander Perechnev" => "herfleisch@me.com" }
   s.source       = { :git => "https://github.com/aperechnev/Ladoga.git", :tag => "0.2.1" }
