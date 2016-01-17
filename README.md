@@ -4,6 +4,8 @@
 
 ## Installation
 
+[![Join the chat at https://gitter.im/aperechnev/Ladoga](https://badges.gitter.im/aperechnev/Ladoga.svg)](https://gitter.im/aperechnev/Ladoga?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The easiest way to start development using **Ladoga** framework is to install it via CocoaPods. Just add it to your `Podfile`:
 
 ```Podspec
